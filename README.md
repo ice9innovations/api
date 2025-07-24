@@ -2,32 +2,6 @@
 
 A Node.js REST API that provides comprehensive image analysis using 12 different machine learning services with a sophisticated emoji voting system. This API serves as the single source of truth for Animal Farm's ML capabilities, built on unified v2 service endpoints with standardized response schemas.
 
-## 🚨 DEBUGGING CHECKLIST 🚨
-
-**BEFORE investigating performance issues or service failures:**
-
-1. **Check overall service health:**
-   ```bash
-   curl -s "http://localhost:8080/health" | jq
-   ```
-
-2. **Check detailed service status:**
-   ```bash
-   curl -s "http://localhost:8080/services/health" | jq
-   ```
-
-3. **Look for offline/error services and check systemd status:**
-   ```bash
-   systemctl status <service-name>-api.service
-   ```
-
-4. **Check API logs for service failure warnings:**
-   ```bash
-   pm2 logs api --lines 50
-   ```
-
-**If API responses include `service_health_summary`, services are failing and need investigation.**
-
 ## Core Features
 
 ### ML Service Integration
@@ -405,8 +379,32 @@ The API uses a streamlined architecture built on unified service endpoints:
 
 This API is designed to work with the existing Animal Farm ML infrastructure. It requires all ML services to be running on their respective ports for full functionality.
 
-### v2 Migration Documentation
-For detailed information about the v2 migration, architecture decisions, and technical implementation, see [`V2_MIGRATION_DOCS.md`](./V2_MIGRATION_DOCS.md).
+## 🚨 DEBUGGING CHECKLIST 🚨
+
+**BEFORE investigating performance issues or service failures:**
+
+1. **Check overall service health:**
+   ```bash
+   curl -s "http://localhost:8080/health" | jq
+   ```
+
+2. **Check detailed service status:**
+   ```bash
+   curl -s "http://localhost:8080/services/health" | jq
+   ```
+
+3. **Look for offline/error services and check systemd status:**
+   ```bash
+   systemctl status <service-name>-api.service
+   ```
+
+4. **Check API logs for service failure warnings:**
+   ```bash
+   pm2 logs api --lines 50
+   ```
+
+**If API responses include `service_health_summary`, services are failing and need investigation.**
+
 
 ## Contributing
 
