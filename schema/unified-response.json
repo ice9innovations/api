@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Animal Farm ML Service Unified Response Schema",
+  "description": "Standardized response format for all ML services in the Animal Farm ecosystem",
+  "type": "object",
+  "required": ["service", "status", "predictions", "metadata"],
+  "properties": {
+    "service": {
+      "type": "string",
+      "description": "Service identifier",
+      "enum": ["blip", "clip", "yolo", "detectron2", "inception", "colors", "face", "nsfw", "ocr", "rtdetr", "metadata", "ollama"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "error"],
+      "description": "Processing status"
+    },
+    "predictions": {
+      "type": "array",
+      "description": "Array of predictions from the ML service",
+      "items": {
+        "type": "object",
+        "required": ["type", "confidence"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["object_detection", "classification", "caption", "color_analysis", "face_detection", "content_moderation", "text_extraction", "metadata_extraction"],
+            "description": "Type of prediction"
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable label (object name, class, etc.)"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "Associated emoji (if available)",
+            "pattern": "^[\\u{1F600}-\\u{1F64F}\\u{1F300}-\\u{1F5FF}\\u{1F680}-\\u{1F6FF}\\u{1F1E0}-\\u{1F1FF}\\u{2600}-\\u{26FF}\\u{2700}-\\u{27BF}]*$"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence score normalized to 0-1 scale"
+          },
+          "bbox": {
+            "type": "object",
+            "description": "Bounding box coordinates (for object detection)",
+            "properties": {
+              "x": {"type": "number"},
+              "y": {"type": "number"}, 
+              "width": {"type": "number"},
+              "height": {"type": "number"}
+            },
+            "required": ["x", "y", "width", "height"]
+          },
+          "text": {
+            "type": "string",
+            "description": "Extracted text (for OCR/captioning)"
+          },
+          "value": {
+            "type": "string",
+            "description": "Generic value field for single-value results"
+          },
+          "properties": {
+            "type": "object",
+            "description": "Service-specific additional properties",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["processing_time"],
+      "properties": {
+        "processing_time": {
+          "type": "number",
+          "description": "Processing time in seconds"
+        },
+        "model_info": {
+          "type": "object",
+          "description": "Information about the ML model used",
+          "properties": {
+            "name": {"type": "string"},
+            "version": {"type": "string"},
+            "framework": {"type": "string"}
+          }
+        },
+        "image_dimensions": {
+          "type": "object",
+          "properties": {
+            "width": {"type": "integer"},
+            "height": {"type": "integer"}
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Service-specific parameters used",
+          "additionalProperties": true
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "description": "Error information (if status is error)",
+      "properties": {
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "details": {"type": "object"}
+      }
+    }
+  }
+}
