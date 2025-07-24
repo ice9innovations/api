@@ -5,7 +5,19 @@ A Node.js REST API that provides comprehensive image analysis using 12 different
 ## Core Features
 
 ### ML Service Integration
-- **13 ML Services**: BLIP (captioning), Ollama/LLaMa (language analysis), CLIP (similarity), YOLO/Detectron2/RT-DETR/RTMDet (object detection), Inception (classification), Face Detection, Colors, NSFW moderation, OCR, Metadata extraction
+- **ML Services**:
+   - BLIP (captioning)
+   - CLIP (similarity)
+   - Colors
+   - Detectron2 (object detection
+   - Face Detection
+   - Inception (classification)
+   - LLaMa/LLaVa (language analysis)
+   - Metadata extraction (EXIF)
+   - NSFW moderation
+   - OCR (text detection)
+   - YOLO (object detection
+   - RT-DETR (object detection)
 - **Parallel Processing**: All services execute simultaneously using Node.js concurrency
 - **Unified Response Format**: Standardized JSON structure across all services
 - **Automatic Confidence Normalization**: All confidence scores normalized to 0-1 scale
