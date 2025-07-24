@@ -379,7 +379,7 @@ The API uses a streamlined architecture built on unified service endpoints:
 
 This API is designed to work with the existing Animal Farm ML infrastructure. It requires all ML services to be running on their respective ports for full functionality.
 
-## 🚨 DEBUGGING CHECKLIST 🚨
+## Troubleshooting
 
 **BEFORE investigating performance issues or service failures:**
 
