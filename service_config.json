@@ -1,0 +1,178 @@
+{
+  "services": {
+    "blip": {
+      "host": "localhost",
+      "port": 7777,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Image captioning with emoji mapping",
+      "service_type": "semantic",
+      "enable_triggers": true,
+      "enable_caption_scoring": true,
+      "enable_consensus_triggers": true
+    },
+    "clip": {
+      "host": "localhost",
+      "port": 7788,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Two stage image classification with confidence scoring",
+      "service_type": "spatial,classification",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "colors": {
+      "host": "localhost",
+      "port": 7770,
+      "endpoint": "/v3/analyze", 
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Copic/Prismacolor color analysis",
+      "service_type": "other",
+      "enable_triggers": true,
+      "enable_consensus_triggers": false
+    },
+    "detectron2": {
+      "host": "localhost",
+      "port": 7771,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Object detection with bounding boxes",
+      "service_type": "spatial",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "face": {
+      "host": "localhost",
+      "port": 7772,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "spatial_only",
+      "description": "Face detection",
+      "service_type": "specialized",
+      "enable_consensus_triggers": true
+    },
+    "xception": {
+      "host": "localhost",
+      "port": 7799,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Xception two stage ImageNet classification",
+      "service_type": "spatial,classification",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "metadata": {
+      "host": "localhost",
+      "port": 7781,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "EXIF/technical metadata extraction",
+      "service_type": "other",
+      "enable_consensus_triggers": false
+    },
+    "ocr": {
+      "host": "localhost",
+      "port": 7775,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Text extraction with PaddleOCR",
+      "service_type": "specialized",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "nsfw2": {
+      "host": "localhost",
+      "port": 7774,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Content moderation",
+      "service_type": "specialized",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "ollama": {
+      "host": "localhost",
+      "port": 7782,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "LLM vision analysis",
+      "service_type": "semantic",
+      "enable_triggers": true,
+      "enable_caption_scoring": true,
+      "enable_consensus_triggers": true
+    },
+    "pose": {
+      "host": "localhost",
+      "port": 7786,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "spatial_only",
+      "description": "Pose Estimation",
+      "service_type": "specialized",
+      "enable_consensus_triggers": false
+    },
+    "rtdetr": {
+      "host": "localhost",
+      "port": 7780,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Transformer-based object detection",
+      "service_type": "spatial",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "yolov8": {
+      "host": "localhost",
+      "port": 7773,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "Real-time object detection",
+      "service_type": "spatial",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "yolo_365": {
+      "host": "localhost",
+      "port": 7790,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "YOLOv11 object detection with Object365 training",
+      "service_type": "spatial",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "yolo_oi7": {
+      "host": "localhost",
+      "port": 7791,
+      "endpoint": "/v3/analyze",
+      "queue_prefix": "queue_",
+      "category": "primary",
+      "description": "YOLOv8 object detection with Open Images v7 training",
+      "service_type": "spatial",
+      "enable_triggers": true,
+      "enable_consensus_triggers": true
+    },
+    "caption_score": {
+      "host": "localhost",
+      "port": 7778,
+      "endpoint": "/score",
+      "queue_prefix": "queue_",
+      "category": "postprocessing",
+      "description": "Caption similarity scoring using CLIP",
+      "service_type": "other",
+      "enable_consensus_triggers": false
+    }
+  }
+}
