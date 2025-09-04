@@ -64,7 +64,7 @@ class V2BaseMLService {
 
     async processImage(imageUrl, retryCount) {
         try {
-            console.log(`🔍 ${this.serviceName} (v2) analyzing via: ${this.serviceURL} (attempt ${retryCount + 1}/${this.maxRetries + 1})`);
+            console.log(`🔍 ${this.serviceName} (v3) analyzing via: ${this.serviceURL} (attempt ${retryCount + 1}/${this.maxRetries + 1})`);
 
             const timeoutPromise = new Promise((_, reject) => {
                 setTimeout(() => reject(new Error('Request timeout')), this.timeout);
@@ -73,7 +73,7 @@ class V2BaseMLService {
             const axios = require('axios');
             const fetchPromise = axios.get(this.serviceURL, {
                 params: {
-                    image_url: imageUrl
+                    url: imageUrl
                 },
                 headers: {
                     'Accept': 'application/json'
@@ -82,16 +82,16 @@ class V2BaseMLService {
             });
 
             const response = await Promise.race([fetchPromise, timeoutPromise]);
-            console.log(`✅ ${this.serviceName} (v2) received response, status: ${response.status}`);
-            const result = this.processV2Response(response);
-            console.log(`🎯 ${this.serviceName} (v2) response processed successfully`);
+            console.log(`✅ ${this.serviceName} (v3) received response, status: ${response.status}`);
+            const result = this.processV3Response(response);
+            console.log(`🎯 ${this.serviceName} (v3) response processed successfully`);
             return result;
 
         } catch (error) {
-            console.error(`❌ ${this.serviceName} (v2) error on attempt ${retryCount + 1}:`, error.message);
+            console.error(`❌ ${this.serviceName} (v3) error on attempt ${retryCount + 1}:`, error.message);
 
             if (retryCount < this.maxRetries) {
-                console.log(`${this.serviceName} (v2) retrying... (${retryCount + 1}/${this.maxRetries})`);
+                console.log(`${this.serviceName} (v3) retrying... (${retryCount + 1}/${this.maxRetries})`);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 return this.processImage(imageUrl, retryCount + 1);
             } else {
@@ -105,18 +105,17 @@ class V2BaseMLService {
             // Resolve optimal variant path for this service
             const optimalPath = this.resolveOptimalVariant(filePath);
             
-            // Use the /v2/analyze_file endpoint for file paths
-            const fileServiceURL = this.serviceURL.replace('/v2/analyze', '/v2/analyze_file');
-            console.log(`${this.serviceName} (v2) analyzing file via: ${fileServiceURL}`);
+            // Use the unified /v3/analyze endpoint for file paths
+            console.log(`${this.serviceName} (v3) analyzing file via: ${this.serviceURL}`);
 
             const timeoutPromise = new Promise((_, reject) => {
                 setTimeout(() => reject(new Error('Request timeout')), this.timeout);
             });
 
             const axios = require('axios');
-            const fetchPromise = axios.get(fileServiceURL, {
+            const fetchPromise = axios.get(this.serviceURL, {
                 params: {
-                    file_path: optimalPath
+                    file: optimalPath
                 },
                 headers: {
                     'Accept': 'application/json'
@@ -125,13 +124,13 @@ class V2BaseMLService {
             });
 
             const response = await Promise.race([fetchPromise, timeoutPromise]);
-            return this.processV2Response(response);
+            return this.processV3Response(response);
 
         } catch (error) {
-            console.error(`${this.serviceName} (v2) file analysis error:`, error.message);
+            console.error(`${this.serviceName} (v3) file analysis error:`, error.message);
 
             if (retryCount < this.maxRetries) {
-                console.log(`${this.serviceName} (v2) file analysis retrying... (${retryCount + 1}/${this.maxRetries})`);
+                console.log(`${this.serviceName} (v3) file analysis retrying... (${retryCount + 1}/${this.maxRetries})`);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 return this.processImageFile(filePath, retryCount + 1);
             } else {
@@ -141,13 +140,13 @@ class V2BaseMLService {
     }
 
     /**
-     * Process unified v2 response format
-     * All v2 services return the same structure, so no service-specific processing needed
+     * Process unified v3 response format
+     * Convert v3 responses to format compatible with existing voting system
      */
-    processV2Response(response) {
+    processV3Response(response) {
         const data = response.data;
         
-        // Validate v2 response structure
+        // Validate v3 response structure
         if (!data || typeof data !== 'object') {
             throw new Error('Invalid response: not a JSON object');
         }
@@ -161,17 +160,23 @@ class V2BaseMLService {
             throw new Error(`Invalid response status: ${data.status}`);
         }
 
-        // Return the unified v2 response as-is
-        // The VotingService will extract what it needs from the predictions array
+        // Return v3 response as-is - let voting system handle the new formats
         return {
             success: true,
-            data: data,
+            data: {
+                service: data.service,
+                status: 'success',
+                predictions: data.predictions || [],
+                metadata: data.metadata || {}
+            },
             service: data.service,
             predictions: data.predictions || [],
             metadata: data.metadata || {},
             processing_time: data.metadata?.processing_time || 0
         };
     }
+
+
 }
 
 module.exports = V2BaseMLService;

@@ -24,13 +24,12 @@ class ResponseFormatter {
     }
 
     /**
-     * Create compact results with timing data and caption scoring included
+     * Create compact results with timing data
      * @param {Object} results - Full results from ML services
      * @param {Array} serviceStatusList - Service status with timing data
-     * @param {Object} captionScores - Caption scoring data to merge
      * @returns {Object} Compact results object
      */
-    createCompactResults(results, serviceStatusList = [], captionScores = {}) {
+    createCompactResults(results, serviceStatusList = []) {
         const compact = {};
         
         // Create lookup for timing data
@@ -44,53 +43,35 @@ class ResponseFormatter {
         });
         
         Object.entries(results).forEach(([serviceName, result]) => {
-            if (result?.data?.predictions) {
+            if (result?.predictions) {
                 const timing = timingLookup[serviceName] || {};
                 
-                // Process predictions and merge caption scores
-                const enhancedPredictions = result.data.predictions.map(prediction => {
-                    if (prediction.type === 'caption') {
-                        // Check if we have scoring data for this service
-                        const serviceKey = serviceName === 'ollama' ? 'llama' : serviceName;
-                        const scoreData = captionScores[serviceKey];
-                        
-                        if (scoreData) {
-                            return {
-                                ...prediction,
-                                score: {
-                                    raw_score: scoreData.raw_score,
-                                    score: scoreData.score,
-                                    matches: scoreData.matches,
-                                    words: scoreData.words,
-                                    total_words: scoreData.total_words,
-                                    percentage: scoreData.percentage,
-                                    formatted: scoreData.formatted
-                                }
-                            };
-                        }
-                    }
-                    return prediction;
-                });
+                // Use predictions as-is (caption scoring handled by CaptionAggregationService)
+                const enhancedPredictions = result.predictions;
                 
-                // Ensure processing time is in seconds and only in metadata
-                const processingTimeSeconds = timing.processing_time ? 
-                    timing.processing_time / 1000 : 
-                    (result.data.metadata?.processing_time || 0);
+                // Processing time is already in seconds from V3 services
+                const processingTimeSeconds = timing.processing_time || 
+                    (result.metadata?.processing_time || 0);
                 
                 compact[serviceName] = {
                     success: result.success,
                     status: timing.status || (result.success ? 'success' : 'error'),
-                    prediction_count: timing.prediction_count || result.data.predictions.length,
                     predictions: enhancedPredictions,
                     metadata: {
-                        ...result.data.metadata,
+                        ...result.metadata,
                         processing_time: processingTimeSeconds
                     }
                 };
             }
         });
         
-        return compact;
+        // Return alphabetically sorted results for consistent API responses
+        const sortedCompact = {};
+        Object.keys(compact).sort().forEach(key => {
+            sortedCompact[key] = compact[key];
+        });
+        
+        return sortedCompact;
     }
 
     /**
@@ -127,12 +108,12 @@ class ResponseFormatter {
             return emojiPredictions;
         }
 
-        // Create lookup for bounding box data by emoji (supporting multiple clusters)
+        // Create lookup for bounding box data by emoji (supporting multiple clusters and instances)
         const bboxLookup = {};
         Object.entries(boundingBoxData.winning_objects.grouped).forEach(([key, group]) => {
             bboxLookup[group.emoji] = {
-                merged_bbox: group.merged_bbox, // Primary/largest cluster for backward compatibility
                 clusters: group.clusters || [], // Multiple clusters if available
+                instances: group.instances || [], // Cross-service instances with instance_id tracking
                 bbox_services: group.detections.reduce((acc, detection) => {
                     acc[detection.service] = {
                         bbox: detection.bbox,
@@ -149,15 +130,26 @@ class ResponseFormatter {
                 const bboxData = bboxLookup[emojiItem.emoji];
                 if (!bboxData) return emojiItem;
 
-                // Add merged bounding box and multiple clusters
+                // Add multiple detection clusters
                 const enhanced = {
-                    ...emojiItem,
-                    merged_bbox: bboxData.merged_bbox
+                    ...emojiItem
                 };
 
-                // Add multiple detection clusters if available
-                if (bboxData.clusters && bboxData.clusters.length > 0) {
-                    enhanced.detection_clusters = bboxData.clusters.map(cluster => ({
+                // Add enhanced bounding boxes with cross-service clustering and instance tracking
+                if (bboxData.instances && bboxData.instances.length > 0) {
+                    // Use cross-service instances with new robust format
+                    enhanced.bounding_boxes = bboxData.instances.map(instance => ({
+                        cluster_id: instance.cluster_id,
+                        merged_bbox: instance.merged_bbox,
+                        emoji: instance.emoji,
+                        label: instance.label,
+                        detection_count: instance.detection_count,
+                        avg_confidence: instance.avg_confidence,
+                        detections: instance.detections
+                    }));
+                } else if (bboxData.clusters && bboxData.clusters.length > 0) {
+                    // Fallback to original clusters format for backward compatibility
+                    enhanced.bounding_boxes = bboxData.clusters.map(cluster => ({
                         cluster_id: cluster.cluster_id,
                         merged_bbox: cluster.merged_bbox,
                         detection_count: cluster.detection_count,
@@ -182,10 +174,19 @@ class ResponseFormatter {
             });
         };
 
-        return {
-            first_place: enhanceEmojiList(emojiPredictions.first_place || []),
-            second_place: enhanceEmojiList(emojiPredictions.second_place || [])
-        };
+        // Handle both V2 (first_place/second_place) and V3 (consensus) formats
+        if (emojiPredictions.consensus) {
+            // V3 format with consensus array
+            return {
+                consensus: enhanceEmojiList(emojiPredictions.consensus || [])
+            };
+        } else {
+            // V2 format with first_place/second_place (backward compatibility)
+            return {
+                first_place: enhanceEmojiList(emojiPredictions.first_place || []),
+                second_place: enhanceEmojiList(emojiPredictions.second_place || [])
+            };
+        }
     }
 
     /**
@@ -208,13 +209,14 @@ class ResponseFormatter {
      * @param {string} params.imageId - Unique image identifier
      * @param {number} params.analysisTime - Analysis time in seconds
      * @param {Object} params.imageDimensions - Image width/height
-     * @param {string} params.imageUrl - URL to processed image
+     * @param {string} params.imageUrl - URL to processed image (if applicable)
+     * @param {string} params.filePath - File path (if applicable)
+     * @param {string} params.processingMethod - How the image was provided
      * @param {boolean} params.isFileUpload - Whether image was uploaded vs URL
      * @param {string} params.originalUrl - Original URL if external image
      * @param {Array} params.serviceStatusList - Individual service statuses
      * @param {Object} params.votingResults - Emoji voting results
-     * @param {Object} params.captions - Caption results
-     * @param {Object} params.captionScores - Caption scoring results
+     * @param {Object} params.captionsData - Unified caption aggregation results
      * @param {Object} params.boundingBoxData - Bounding box data
      * @param {Object} params.results - Raw ML service results
      * @returns {Object} Compact response object
@@ -224,39 +226,59 @@ class ResponseFormatter {
         analysisTime,
         imageDimensions,
         imageUrl,
+        filePath,
+        processingMethod,
         isFileUpload,
         originalUrl,
         serviceStatusList,
         votingResults,
-        captions,
-        captionScores,
+        captionsData,
         boundingBoxData,
         results,
         healthSummary = null
     }) {
+        const imageData = {
+            image_dimensions: imageDimensions ? {
+                width: imageDimensions.width,
+                height: imageDimensions.height
+            } : null,
+            processing_method: processingMethod
+        };
+
+        // Add appropriate URL or file path based on processing method
+        if (imageUrl) {
+            imageData.image_url = imageUrl;
+        }
+        if (filePath) {
+            imageData.file_path = filePath;
+        }
+        if (originalUrl) {
+            imageData.original_url = originalUrl;
+        }
+
+        // Determine success based on service health - fail fast when services are offline
+        const hasOfflineServices = healthSummary && healthSummary.degraded_services && 
+            healthSummary.degraded_services.length > 0;
+        
         const response = {
-            success: true,
+            success: !hasOfflineServices,
             image_id: imageId,
-            analysis_time: analysisTime,
-            image_data: {
-                image_dimensions: imageDimensions ? {
-                    width: imageDimensions.width,
-                    height: imageDimensions.height
-                } : null,
-                image_url: imageUrl,
-                processing_method: isFileUpload ? 'file_upload' : 'external_url_downloaded',
-                original_url: originalUrl
+            analysis_time: Math.round(analysisTime * 1000) / 1000,
+            image_data: imageData,
+            votes: {
+                ...this.integrateEmojiPredictionsWithBoundingBoxes(votingResults.votes, boundingBoxData)
             },
-            emoji_predictions: {
-                ...this.integrateEmojiPredictionsWithBoundingBoxes(votingResults.emoji_predictions, boundingBoxData)
-            },
-            captions: captions,
-            results: this.createCompactResults(results, serviceStatusList, captionScores)
+            special: votingResults.special || {},
+            ...captionsData,
+            results: this.createCompactResults(results, serviceStatusList)
         };
         
         // Add health summary if services are degraded
         if (healthSummary) {
             response.service_health_summary = healthSummary;
+            if (hasOfflineServices) {
+                response.error = `${healthSummary.failed_count} service(s) offline: ${healthSummary.degraded_services.join(', ')}`;
+            }
         }
         
         return response;

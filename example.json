@@ -1,0 +1,1941 @@
+{
+  "success": true,
+  "image_id": "0ab59466-eb74-43dc-913d-e71a8bdecb03",
+  "analysis_time": 2.642,
+  "image_data": {
+    "image_dimensions": {
+      "width": 640,
+      "height": 457
+    },
+    "processing_method": "external_url_downloaded",
+    "image_url": "http://192.168.0.101:8080/df0c37b1-0420-409e-a29a-108607fb6ed8.webp",
+    "original_url": "http://peach.local/coco/webp/000000077222.webp"
+  },
+  "votes": {
+    "consensus": [
+      {
+        "emoji": "🧑",
+        "votes": 7,
+        "evidence_weight": 13,
+        "final_score": 20,
+        "instances": {
+          "count": 8,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 5,
+            "avg_confidence": 0.785,
+            "instance_count": 8
+          },
+          "semantic": {
+            "service_count": 2,
+            "words": [
+              "soldier",
+              "man"
+            ]
+          },
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "blip",
+          "yolo",
+          "detectron2",
+          "rtdetr",
+          "llama",
+          "yolo_365",
+          "yolo_oi7"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "person_1",
+            "merged_bbox": {
+              "x": 247,
+              "y": 6,
+              "width": 393,
+              "height": 450
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 5,
+            "avg_confidence": 0.903,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.959
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.998
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.971
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.956
+              },
+              {
+                "service": "yolo_oi7",
+                "confidence": 0.629
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_2",
+            "merged_bbox": {
+              "x": 6,
+              "y": 23,
+              "width": 280,
+              "height": 434
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 4,
+            "avg_confidence": 0.911,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.929
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.996
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.892
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.825
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_3",
+            "merged_bbox": {
+              "x": 373,
+              "y": 49,
+              "width": 82,
+              "height": 224
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 4,
+            "avg_confidence": 0.842,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.814
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.924
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.86
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.771
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_4",
+            "merged_bbox": {
+              "x": 274,
+              "y": 88,
+              "width": 71,
+              "height": 110
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 4,
+            "avg_confidence": 0.771,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.827
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.922
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.846
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.49
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_5",
+            "merged_bbox": {
+              "x": 222,
+              "y": 73,
+              "width": 68,
+              "height": 147
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 4,
+            "avg_confidence": 0.727,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.751
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.93
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.813
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.415
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_6",
+            "merged_bbox": {
+              "x": 264,
+              "y": 43,
+              "width": 45,
+              "height": 100
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 4,
+            "avg_confidence": 0.711,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.659
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.945
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.822
+              },
+              {
+                "service": "yolo_365",
+                "confidence": 0.416
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_7",
+            "merged_bbox": {
+              "x": 163,
+              "y": 69,
+              "width": 109,
+              "height": 195
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 3,
+            "avg_confidence": 0.773,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.51
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.935
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.873
+              }
+            ]
+          },
+          {
+            "cluster_id": "person_8",
+            "merged_bbox": {
+              "x": 445,
+              "y": 6,
+              "width": 195,
+              "height": 193
+            },
+            "emoji": "🧑",
+            "label": "person",
+            "detection_count": 2,
+            "avg_confidence": 0.641,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.79
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.492
+              }
+            ]
+          }
+        ],
+        "validation": [
+          "face_confirmed"
+        ]
+      },
+      {
+        "emoji": "🧸",
+        "votes": 6,
+        "evidence_weight": 10,
+        "final_score": 16,
+        "instances": {
+          "count": 1,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 5,
+            "avg_confidence": 0.859,
+            "instance_count": 1
+          },
+          "semantic": {
+            "service_count": 1,
+            "words": [
+              "teddy_bear"
+            ]
+          },
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "clip",
+          "yolo",
+          "detectron2",
+          "inception",
+          "rtdetr",
+          "llama"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "teddy bear_1",
+            "merged_bbox": {
+              "x": 259,
+              "y": 158,
+              "width": 116,
+              "height": 121
+            },
+            "emoji": "🧸",
+            "label": "teddy bear",
+            "detection_count": 5,
+            "avg_confidence": 0.859,
+            "detections": [
+              {
+                "service": "yolo",
+                "confidence": 0.948
+              },
+              {
+                "service": "detectron2",
+                "confidence": 0.989
+              },
+              {
+                "service": "rtdetr",
+                "confidence": 0.942
+              },
+              {
+                "service": "clip",
+                "confidence": 0.984
+              },
+              {
+                "service": "inception",
+                "confidence": 0.434
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "👩",
+        "votes": 2,
+        "evidence_weight": 3,
+        "final_score": 5,
+        "instances": {
+          "count": 3,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 2,
+            "avg_confidence": 0.905,
+            "instance_count": 3
+          },
+          "semantic": null,
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "clip",
+          "yolo_oi7"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "woman_1",
+            "merged_bbox": {
+              "x": 0,
+              "y": 4,
+              "width": 228,
+              "height": 453
+            },
+            "emoji": "👩",
+            "label": "woman",
+            "detection_count": 2,
+            "avg_confidence": 0.72,
+            "detections": [
+              {
+                "service": "yolo_oi7",
+                "confidence": 0.536
+              },
+              {
+                "service": "clip",
+                "confidence": 0.904
+              }
+            ]
+          },
+          {
+            "cluster_id": "girl_2",
+            "merged_bbox": {
+              "x": 164,
+              "y": 69,
+              "width": 120,
+              "height": 193
+            },
+            "emoji": "👩",
+            "label": "girl",
+            "detection_count": 1,
+            "avg_confidence": 1,
+            "detections": [
+              {
+                "service": "clip",
+                "confidence": 1
+              }
+            ]
+          },
+          {
+            "cluster_id": "girl_3",
+            "merged_bbox": {
+              "x": 274,
+              "y": 89,
+              "width": 69,
+              "height": 105
+            },
+            "emoji": "👩",
+            "label": "girl",
+            "detection_count": 1,
+            "avg_confidence": 0.996,
+            "detections": [
+              {
+                "service": "clip",
+                "confidence": 0.996
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "🧢",
+        "votes": 2,
+        "evidence_weight": 3,
+        "final_score": 5,
+        "instances": {
+          "count": 1,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 2,
+            "avg_confidence": 0.576,
+            "instance_count": 1
+          },
+          "semantic": null,
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "yolo_365",
+          "yolo_oi7"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "hat_1",
+            "merged_bbox": {
+              "x": 373,
+              "y": 5,
+              "width": 149,
+              "height": 96
+            },
+            "emoji": "🧢",
+            "label": "hat",
+            "detection_count": 2,
+            "avg_confidence": 0.576,
+            "detections": [
+              {
+                "service": "yolo_365",
+                "confidence": 0.885
+              },
+              {
+                "service": "yolo_oi7",
+                "confidence": 0.266
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "🌼",
+        "votes": 2,
+        "evidence_weight": 2,
+        "final_score": 4,
+        "instances": {
+          "count": 1,
+          "type": "non_spatial"
+        },
+        "evidence": {
+          "spatial": null,
+          "semantic": {
+            "service_count": 1,
+            "words": [
+              "bouquet"
+            ]
+          },
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "blip",
+          "yolo_365"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": 0,
+            "merged_bbox": {
+              "x": 160,
+              "y": 217,
+              "width": 190,
+              "height": 238
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.537,
+            "services": [
+              "yolo_365"
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "🙂",
+        "votes": 2,
+        "evidence_weight": 2,
+        "final_score": 4,
+        "instances": {
+          "count": 1,
+          "type": "non_spatial"
+        },
+        "evidence": {
+          "spatial": null,
+          "semantic": null,
+          "classification": null,
+          "specialized": [
+            "face"
+          ]
+        },
+        "services": [
+          "face",
+          "yolo_oi7"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": 0,
+            "merged_bbox": {
+              "x": 400,
+              "y": 64,
+              "width": 79,
+              "height": 101
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.518,
+            "services": [
+              "yolo_oi7"
+            ]
+          },
+          {
+            "cluster_id": 1,
+            "merged_bbox": {
+              "x": 196,
+              "y": 93,
+              "width": 40,
+              "height": 59
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.334,
+            "services": [
+              "yolo_oi7"
+            ]
+          },
+          {
+            "cluster_id": 2,
+            "merged_bbox": {
+              "x": 298,
+              "y": 97,
+              "width": 28,
+              "height": 36
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.45,
+            "services": [
+              "yolo_oi7"
+            ]
+          },
+          {
+            "cluster_id": 3,
+            "merged_bbox": {
+              "x": 252,
+              "y": 88,
+              "width": 28,
+              "height": 42
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.371,
+            "services": [
+              "yolo_oi7"
+            ]
+          },
+          {
+            "cluster_id": 4,
+            "merged_bbox": {
+              "x": 281,
+              "y": 61,
+              "width": 24,
+              "height": 25
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.368,
+            "services": [
+              "yolo_oi7"
+            ]
+          },
+          {
+            "cluster_id": 5,
+            "merged_bbox": {
+              "x": null,
+              "y": null,
+              "width": null,
+              "height": null
+            },
+            "detection_count": 1,
+            "avg_confidence": 0.763,
+            "services": [
+              "face"
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "👔",
+        "votes": 2,
+        "evidence_weight": 2,
+        "final_score": 4,
+        "instances": {
+          "count": 1,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 1,
+            "avg_confidence": 0.973,
+            "instance_count": 1
+          },
+          "semantic": null,
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "inception",
+          "yolo_oi7"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "military_uniform_1",
+            "merged_bbox": {
+              "x": 443,
+              "y": 4,
+              "width": 196,
+              "height": 193
+            },
+            "emoji": "👔",
+            "label": "military_uniform",
+            "detection_count": 1,
+            "avg_confidence": 0.973,
+            "detections": [
+              {
+                "service": "inception",
+                "confidence": 0.973
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "emoji": "👗",
+        "votes": 2,
+        "evidence_weight": 2,
+        "final_score": 4,
+        "instances": {
+          "count": 1,
+          "type": "spatial"
+        },
+        "evidence": {
+          "spatial": {
+            "detection_count": 1,
+            "avg_confidence": 0.954,
+            "instance_count": 1
+          },
+          "semantic": {
+            "service_count": 1,
+            "words": [
+              "dress"
+            ]
+          },
+          "classification": null,
+          "specialized": null
+        },
+        "services": [
+          "inception",
+          "llama"
+        ],
+        "bounding_boxes": [
+          {
+            "cluster_id": "kimono_1",
+            "merged_bbox": {
+              "x": 164,
+              "y": 69,
+              "width": 109,
+              "height": 193
+            },
+            "emoji": "👗",
+            "label": "kimono",
+            "detection_count": 1,
+            "avg_confidence": 0.954,
+            "detections": [
+              {
+                "service": "inception",
+                "confidence": 0.954
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "special": {
+    "text": {
+      "detected": false
+    },
+    "face": {
+      "emoji": "🙂",
+      "detected": true,
+      "confidence": 0.763,
+      "pose": null
+    },
+    "nsfw": {
+      "detected": false
+    }
+  },
+  "captions": {
+    "blip": {
+      "original": "a soldier giving a little girl a bouquet",
+      "words": 5,
+      "clip_similarity": 0.253,
+      "emoji_mappings": [
+        {
+          "emoji": "🧑",
+          "word": "soldier"
+        },
+        {
+          "emoji": "🌼",
+          "word": "bouquet"
+        }
+      ]
+    },
+    "llama": {
+      "original": "A man is giving a teddy bear to a little girl wearing a pink dress.",
+      "words": 9,
+      "clip_similarity": 0.25,
+      "emoji_mappings": [
+        {
+          "emoji": "🧑",
+          "word": "man"
+        },
+        {
+          "emoji": "🧸",
+          "word": "teddy_bear"
+        },
+        {
+          "emoji": "👗",
+          "word": "dress"
+        }
+      ]
+    }
+  },
+  "results": {
+    "blip": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "emoji_mappings": [
+            {
+              "emoji": "🧑",
+              "word": "soldier"
+            },
+            {
+              "emoji": "🌼",
+              "word": "bouquet"
+            }
+          ],
+          "text": "a soldier giving a little girl a bouquet"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "BLIP (Bootstrapping Language-Image Pre-training)"
+        },
+        "processing_time": 0.268
+      }
+    },
+    "clip": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 193,
+            "width": 120,
+            "x": 164,
+            "y": 69
+          },
+          "confidence": 1,
+          "emoji": "👩",
+          "label": "girl",
+          "merged_count": 2
+        },
+        {
+          "bbox": {
+            "height": 98,
+            "width": 41,
+            "x": 267,
+            "y": 42
+          },
+          "confidence": 0.999,
+          "emoji": "",
+          "label": "dairy_product"
+        },
+        {
+          "bbox": {
+            "height": 441,
+            "width": 392,
+            "x": 247,
+            "y": 9
+          },
+          "confidence": 0.999,
+          "emoji": "",
+          "label": "marine_mammal"
+        },
+        {
+          "bbox": {
+            "height": 105,
+            "width": 69,
+            "x": 274,
+            "y": 89
+          },
+          "confidence": 0.996,
+          "emoji": "👩",
+          "label": "girl"
+        },
+        {
+          "bbox": {
+            "height": 119,
+            "width": 116,
+            "x": 259,
+            "y": 158
+          },
+          "confidence": 0.984,
+          "emoji": "🧸",
+          "label": "teddy_bear"
+        },
+        {
+          "bbox": {
+            "height": 446,
+            "width": 228,
+            "x": 0,
+            "y": 4
+          },
+          "confidence": 0.904,
+          "emoji": "👩",
+          "label": "girl",
+          "merged_count": 2
+        },
+        {
+          "bbox": {
+            "height": 193,
+            "width": 196,
+            "x": 443,
+            "y": 4
+          },
+          "confidence": 0.79,
+          "emoji": "",
+          "label": "asshole"
+        },
+        {
+          "bbox": {
+            "height": 173,
+            "width": 81,
+            "x": 374,
+            "y": 98
+          },
+          "confidence": 0.698,
+          "emoji": "",
+          "label": "dairy_product"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "YOLO + CLIP"
+        },
+        "processing_time": 0.334
+      }
+    },
+    "colors": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "palette": {
+            "colors": [
+              {
+                "copic": "Cool Gray No.10 (C-10)",
+                "hex": "#1f1e1e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "cool"
+              },
+              {
+                "copic": "Toner Gray No.7 (T-7)",
+                "hex": "#858380",
+                "prismacolor": "French Grey 70% (PM 161)",
+                "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                "temperature": "neutral"
+              },
+              {
+                "copic": "Champagne (E71)",
+                "hex": "#ebe1da",
+                "prismacolor": "Putty (PM 80)",
+                "prismacolor_pencils": "Cool Grey 10% (PC 1059)",
+                "temperature": "neutral"
+              },
+              {
+                "copic": "Dark Red (R89)",
+                "hex": "#91354d",
+                "prismacolor": "Mahogany Red (PM 150)",
+                "prismacolor_pencils": "Crimson Lake (PC 925)",
+                "temperature": "warm"
+              },
+              {
+                "copic": "Bronze (BG78)",
+                "hex": "#48756b",
+                "prismacolor": "Cool Grey 80% (PM 115)",
+                "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                "temperature": "cool"
+              },
+              {
+                "copic": "Light Mahogany (E07)",
+                "hex": "#d99278",
+                "prismacolor": "Walnut (PM 90)",
+                "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                "temperature": "neutral"
+              },
+              {
+                "copic": "Dark Bark (E49)",
+                "hex": "#7a5d45",
+                "prismacolor": "Light Umber 90% (PM 278)",
+                "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                "temperature": "neutral"
+              },
+              {
+                "copic": "Slate (BV29)",
+                "hex": "#2e4256",
+                "prismacolor": "Neutral Grey 90% (PM 224)",
+                "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                "temperature": "cool"
+              }
+            ],
+            "temperature": "cool"
+          },
+          "primary": {
+            "copic": "Cool Gray No.10 (C-10)",
+            "hex": "#3c292e",
+            "prismacolor": "French Grey 90% (PM 163)",
+            "prismacolor_pencils": "Espresso (PC 1099)",
+            "temperature": "cool"
+          }
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "Haishoku"
+        },
+        "processing_time": 0.222
+      }
+    },
+    "detectron2": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 443,
+            "width": 392,
+            "x": 248,
+            "y": 8
+          },
+          "confidence": 0.998,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 429,
+            "width": 232,
+            "x": 6,
+            "y": 23
+          },
+          "confidence": 0.996,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 90,
+            "width": 39,
+            "x": 270,
+            "y": 44
+          },
+          "confidence": 0.945,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 183,
+            "width": 104,
+            "x": 165,
+            "y": 73
+          },
+          "confidence": 0.935,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 128,
+            "width": 66,
+            "x": 224,
+            "y": 76
+          },
+          "confidence": 0.93,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 187,
+            "width": 78,
+            "x": 376,
+            "y": 84
+          },
+          "confidence": 0.924,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 109,
+            "width": 69,
+            "x": 276,
+            "y": 89
+          },
+          "confidence": 0.922,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 111,
+            "width": 115,
+            "x": 260,
+            "y": 163
+          },
+          "confidence": 0.989,
+          "emoji": "🧸",
+          "label": "teddy bear"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "Facebook AI Research"
+        },
+        "processing_time": 0.182
+      }
+    },
+    "face": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": [
+            385,
+            69,
+            79,
+            79
+          ],
+          "confidence": 0.763,
+          "emoji": "🙂",
+          "keypoints": {
+            "left_ear_tragion": [
+              484,
+              93
+            ],
+            "left_eye": [
+              431,
+              93
+            ],
+            "mouth_center": [
+              421,
+              129
+            ],
+            "nose_tip": [
+              409,
+              114
+            ],
+            "right_ear_tragion": [
+              440,
+              100
+            ],
+            "right_eye": [
+              418,
+              95
+            ]
+          },
+          "label": "face"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "MediaPipe"
+        },
+        "processing_time": 0.013
+      }
+    },
+    "inception": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 193,
+            "width": 196,
+            "x": 443,
+            "y": 4
+          },
+          "confidence": 0.973,
+          "emoji": "👔",
+          "label": "military_uniform"
+        },
+        {
+          "bbox": {
+            "height": 193,
+            "width": 109,
+            "x": 164,
+            "y": 69
+          },
+          "confidence": 0.954,
+          "emoji": "👗",
+          "label": "kimono"
+        },
+        {
+          "bbox": {
+            "height": 98,
+            "width": 41,
+            "x": 267,
+            "y": 42
+          },
+          "confidence": 0.585,
+          "emoji": "👔",
+          "label": "neck_brace"
+        },
+        {
+          "bbox": {
+            "height": 119,
+            "width": 116,
+            "x": 259,
+            "y": 158
+          },
+          "confidence": 0.434,
+          "emoji": "🧸",
+          "label": "teddy"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "YOLO + Xception"
+        },
+        "processing_time": 0.606
+      }
+    },
+    "metadata": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "aspect_ratio": {
+            "category": "landscape",
+            "ratio": 1.4
+          },
+          "color_properties": {
+            "saturation_analysis": {
+              "average_saturation": 81,
+              "saturation_level": 81
+            }
+          },
+          "composition": {
+            "complexity_analysis": {
+              "complexity_level": 19.4,
+              "edge_density": 0.194
+            },
+            "rule_of_thirds": {
+              "most_interesting_section": 7,
+              "section_brightness": [
+                93.1,
+                104.8,
+                92.5,
+                146,
+                167.4,
+                88.3,
+                106.1,
+                138.1,
+                54.5
+              ]
+            },
+            "symmetry_analysis": {
+              "horizontal_symmetry_score": 0.732,
+              "symmetry_level": 73.2
+            }
+          },
+          "dimensions": {
+            "height": 457,
+            "width": 640
+          },
+          "exif_data": {
+            "File:FileAccessDate": "2025:09:04 14:37:17-07:00",
+            "File:FileInodeChangeDate": "2025:09:04 14:37:17-07:00",
+            "File:FileModifyDate": "2025:09:04 14:37:17-07:00"
+          },
+          "file": {
+            "file_size": 168662,
+            "file_type": "jpeg"
+          },
+          "image_quality": {
+            "blur_analysis": {
+              "laplacian_variance": 2533.04,
+              "sharpness_score": 1
+            },
+            "contrast_analysis": {
+              "brightness_variation": 68.35,
+              "contrast_quality": 26.7,
+              "contrast_score": 1.07,
+              "dynamic_range": 68.35
+            },
+            "exposure_analysis": {
+              "bright_pixel_ratio": 0.09,
+              "dark_pixel_ratio": 0.042,
+              "exposure_quality": 86.8,
+              "histogram_balance": 68.35
+            },
+            "lighting_analysis": {
+              "lighting_quality": 109.98,
+              "mean_brightness": 109.98
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "ExifTool + PIL + OpenCV + NumPy"
+        },
+        "processing_time": 0.175
+      }
+    },
+    "nsfw": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "confidence": 0.999,
+          "emoji": "",
+          "nsfw": false
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "TensorFlow"
+        },
+        "processing_time": 0.201
+      }
+    },
+    "ocr": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "emoji": "",
+          "emoji_mappings": [],
+          "has_text": false,
+          "text": "",
+          "text_regions": []
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "PaddleOCR"
+        },
+        "processing_time": 0.028
+      }
+    },
+    "ollama": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "emoji_mappings": [
+            {
+              "emoji": "🧑",
+              "word": "man"
+            },
+            {
+              "emoji": "🧸",
+              "word": "teddy_bear"
+            },
+            {
+              "emoji": "👗",
+              "word": "dress"
+            }
+          ],
+          "text": "A man is giving a teddy bear to a little girl wearing a pink dress."
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "Ollama",
+          "model": "llava-llama3",
+          "prompt": "Briefly describe this image in a single short sentence including the number and type of people if any are present and what they are doing and any text included in the image, also mentioning nudity and explicit conent if applicable."
+        },
+        "processing_time": 2.62
+      }
+    },
+    "rtdetr": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 446,
+            "width": 391,
+            "x": 247,
+            "y": 6
+          },
+          "confidence": 0.971,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 428,
+            "width": 211,
+            "x": 13,
+            "y": 24
+          },
+          "confidence": 0.892,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 193,
+            "width": 108,
+            "x": 164,
+            "y": 71
+          },
+          "confidence": 0.873,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 221,
+            "width": 82,
+            "x": 373,
+            "y": 49
+          },
+          "confidence": 0.86,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 105,
+            "width": 65,
+            "x": 277,
+            "y": 88
+          },
+          "confidence": 0.846,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 97,
+            "width": 41,
+            "x": 267,
+            "y": 43
+          },
+          "confidence": 0.822,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 134,
+            "width": 67,
+            "x": 222,
+            "y": 73
+          },
+          "confidence": 0.813,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 104,
+            "width": 18,
+            "x": 621,
+            "y": 45
+          },
+          "confidence": 0.529,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 130,
+            "width": 123,
+            "x": 516,
+            "y": 69
+          },
+          "confidence": 0.492,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 119,
+            "width": 115,
+            "x": 260,
+            "y": 158
+          },
+          "confidence": 0.942,
+          "emoji": "🧸",
+          "label": "teddy bear"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "RT-DETR PyTorch"
+        },
+        "processing_time": 0.231
+      }
+    },
+    "yolo": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 434,
+            "width": 392,
+            "x": 248,
+            "y": 16
+          },
+          "confidence": 0.959,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 426,
+            "width": 269,
+            "x": 17,
+            "y": 25
+          },
+          "confidence": 0.929,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 107,
+            "width": 69,
+            "x": 274,
+            "y": 88
+          },
+          "confidence": 0.827,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 172,
+            "width": 80,
+            "x": 375,
+            "y": 98
+          },
+          "confidence": 0.814,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 190,
+            "width": 195,
+            "x": 445,
+            "y": 6
+          },
+          "confidence": 0.79,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 267,
+            "width": 157,
+            "x": 0,
+            "y": 2
+          },
+          "confidence": 0.781,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 130,
+            "width": 59,
+            "x": 224,
+            "y": 74
+          },
+          "confidence": 0.751,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 97,
+            "width": 44,
+            "x": 265,
+            "y": 43
+          },
+          "confidence": 0.659,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 151,
+            "width": 92,
+            "x": 163,
+            "y": 69
+          },
+          "confidence": 0.51,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 120,
+            "width": 115,
+            "x": 260,
+            "y": 159
+          },
+          "confidence": 0.948,
+          "emoji": "🧸",
+          "label": "teddy bear"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "framework": "Ultralytics YOLOv8"
+        },
+        "processing_time": 0.122
+      }
+    },
+    "yolo_365": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 447,
+            "width": 391,
+            "x": 249,
+            "y": 8
+          },
+          "confidence": 0.956,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 433,
+            "width": 214,
+            "x": 15,
+            "y": 24
+          },
+          "confidence": 0.825,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 174,
+            "width": 71,
+            "x": 375,
+            "y": 99
+          },
+          "confidence": 0.771,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 109,
+            "width": 71,
+            "x": 274,
+            "y": 89
+          },
+          "confidence": 0.49,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 99,
+            "width": 45,
+            "x": 264,
+            "y": 44
+          },
+          "confidence": 0.416,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 147,
+            "width": 61,
+            "x": 222,
+            "y": 73
+          },
+          "confidence": 0.415,
+          "emoji": "🧑",
+          "label": "person"
+        },
+        {
+          "bbox": {
+            "height": 119,
+            "width": 115,
+            "x": 260,
+            "y": 159
+          },
+          "confidence": 0.916,
+          "label": "stuffed_toy"
+        },
+        {
+          "bbox": {
+            "height": 94,
+            "width": 148,
+            "x": 373,
+            "y": 7
+          },
+          "confidence": 0.885,
+          "emoji": "🧢",
+          "label": "hat"
+        },
+        {
+          "bbox": {
+            "height": 20,
+            "width": 32,
+            "x": 276,
+            "y": 44
+          },
+          "confidence": 0.827,
+          "emoji": "🧢",
+          "label": "hat"
+        },
+        {
+          "bbox": {
+            "height": 36,
+            "width": 76,
+            "x": 443,
+            "y": 5
+          },
+          "confidence": 0.762,
+          "emoji": "🧢",
+          "label": "hat"
+        },
+        {
+          "bbox": {
+            "height": 75,
+            "width": 91,
+            "x": 250,
+            "y": 327
+          },
+          "confidence": 0.686,
+          "emoji": "🥎",
+          "label": "gloves"
+        },
+        {
+          "bbox": {
+            "height": 35,
+            "width": 47,
+            "x": 325,
+            "y": 255
+          },
+          "confidence": 0.618,
+          "emoji": "🥎",
+          "label": "gloves"
+        },
+        {
+          "bbox": {
+            "height": 38,
+            "width": 51,
+            "x": 177,
+            "y": 208
+          },
+          "confidence": 0.594,
+          "emoji": "🥎",
+          "label": "gloves"
+        },
+        {
+          "bbox": {
+            "height": 48,
+            "width": 43,
+            "x": 429,
+            "y": 201
+          },
+          "confidence": 0.3,
+          "emoji": "🥎",
+          "label": "gloves"
+        },
+        {
+          "bbox": {
+            "height": 15,
+            "width": 15,
+            "x": 378,
+            "y": 182
+          },
+          "confidence": 0.265,
+          "emoji": "🥎",
+          "label": "gloves"
+        },
+        {
+          "bbox": {
+            "height": 238,
+            "width": 190,
+            "x": 160,
+            "y": 217
+          },
+          "confidence": 0.537,
+          "emoji": "🌼",
+          "label": "flower"
+        },
+        {
+          "bbox": {
+            "height": 39,
+            "width": 47,
+            "x": 188,
+            "y": 69
+          },
+          "confidence": 0.308,
+          "emoji": "👓",
+          "label": "glasses"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "dataset": "Object365",
+          "framework": "Ultralytics YOLO"
+        },
+        "processing_time": 0.216
+      }
+    },
+    "yolo_oi7": {
+      "success": true,
+      "status": "success",
+      "predictions": [
+        {
+          "bbox": {
+            "height": 447,
+            "width": 389,
+            "x": 251,
+            "y": 9
+          },
+          "confidence": 0.629,
+          "emoji": "🧑",
+          "label": "man"
+        },
+        {
+          "bbox": {
+            "height": 321,
+            "width": 184,
+            "x": 16,
+            "y": 135
+          },
+          "confidence": 0.54,
+          "emoji": "👔",
+          "label": "clothing"
+        },
+        {
+          "bbox": {
+            "height": 175,
+            "width": 78,
+            "x": 374,
+            "y": 96
+          },
+          "confidence": 0.404,
+          "emoji": "👔",
+          "label": "clothing"
+        },
+        {
+          "bbox": {
+            "height": 356,
+            "width": 308,
+            "x": 332,
+            "y": 100
+          },
+          "confidence": 0.366,
+          "emoji": "👔",
+          "label": "clothing"
+        },
+        {
+          "bbox": {
+            "height": 435,
+            "width": 210,
+            "x": 16,
+            "y": 22
+          },
+          "confidence": 0.536,
+          "emoji": "👩",
+          "label": "woman"
+        },
+        {
+          "bbox": {
+            "height": 101,
+            "width": 79,
+            "x": 400,
+            "y": 64
+          },
+          "confidence": 0.518,
+          "emoji": "🙂",
+          "label": "human_face"
+        },
+        {
+          "bbox": {
+            "height": 36,
+            "width": 28,
+            "x": 298,
+            "y": 97
+          },
+          "confidence": 0.45,
+          "emoji": "🙂",
+          "label": "human_face"
+        },
+        {
+          "bbox": {
+            "height": 42,
+            "width": 28,
+            "x": 252,
+            "y": 88
+          },
+          "confidence": 0.371,
+          "emoji": "🙂",
+          "label": "human_face"
+        },
+        {
+          "bbox": {
+            "height": 25,
+            "width": 24,
+            "x": 281,
+            "y": 61
+          },
+          "confidence": 0.368,
+          "emoji": "🙂",
+          "label": "human_face"
+        },
+        {
+          "bbox": {
+            "height": 59,
+            "width": 40,
+            "x": 196,
+            "y": 93
+          },
+          "confidence": 0.334,
+          "emoji": "🙂",
+          "label": "human_face"
+        },
+        {
+          "bbox": {
+            "height": 96,
+            "width": 149,
+            "x": 373,
+            "y": 5
+          },
+          "confidence": 0.266,
+          "emoji": "🧢",
+          "label": "hat"
+        }
+      ],
+      "metadata": {
+        "model_info": {
+          "dataset": "Open Images 7",
+          "framework": "Ultralytics YOLO"
+        },
+        "processing_time": 0.166
+      }
+    }
+  }
+}

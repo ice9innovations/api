@@ -88,19 +88,19 @@ class V2SimpleVotingService {
 
             result.data.predictions.forEach(prediction => {
                 let emoji = null;
-                let confidence = prediction.confidence || this.defaultConfidence; // Default confidence for services without confidence scores
+                let confidence = prediction.confidence || this.defaultConfidence;
 
-                // Handle different prediction types
-                if (prediction.type === 'emoji_mappings' && prediction.properties?.mappings) {
-                    // Extract emojis from emoji_mappings (BLIP, Ollama)
-                    // These don't have confidence scores, so use default confidence
-                    prediction.properties.mappings.forEach(mapping => {
+                // Handle emoji_mappings format (BLIP, Ollama v3)
+                if (prediction.emoji_mappings && Array.isArray(prediction.emoji_mappings)) {
+                    prediction.emoji_mappings.forEach(mapping => {
                         if (mapping.emoji && !seenEmojis.has(mapping.emoji)) {
                             seenEmojis.add(mapping.emoji);
                             this.addEmojiVote(emojiVotes, mapping.emoji, serviceDisplayName, this.defaultConfidence);
                         }
                     });
-                } else if (prediction.emoji && prediction.type !== 'color_analysis') {
+                }
+                // Handle direct emoji format (CLIP, object detection, etc.)
+                else if (prediction.emoji && prediction.type !== 'color_analysis') {
                     // Extract emoji from other prediction types
                     // Skip color_analysis predictions - they shouldn't participate in voting
                     emoji = prediction.emoji;

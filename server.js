@@ -12,19 +12,21 @@ const axios = require('axios');
 // Import ML services
 const { services: mlServices, config: mlConfig } = require('./services');
 // const V2VotingService = require('./services/V2VotingService');  // Original voting service - commented out for rollback
-const V2SimpleVotingService = require('./services/V2SimpleVotingService');  // New simplified voting service
+const V3VotingService = require('./services/V3VotingService');  // V3 voting service
 const BoundingBoxService = require('./services/BoundingBoxService');
+const CaptionAggregationService = require('./services/CaptionAggregationService');
 const ResponseFormatter = require('./services/ResponseFormatter');
 
 const app = express();
 const PORT = process.env.PORT;
 const API_HOST = process.env.API_HOST || 'localhost';
+const PUBLIC_URL = process.env.PUBLIC_URL || `http://localhost:${process.env.PORT}`;
 const UPLOAD_DIR = process.env.UPLOAD_DIR;
 const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
 
 // Initialize services
 // const votingService = new V2VotingService();  // Original voting service - commented out for rollback
-const votingService = new V2SimpleVotingService();  // New simplified voting service
+const votingService = new V3VotingService();  // V3 voting service
 const boundingBoxService = new BoundingBoxService();
 const responseFormatter = new ResponseFormatter();
 
@@ -103,7 +105,7 @@ app.get('/health', async (req, res) => {
         const axios = require('axios');
         const serviceChecks = Object.entries(mlServices).map(async ([serviceName, service]) => {
             try {
-                await axios.get(`${service.serviceURL.replace('/v2/analyze', '')}/health`, { timeout: 2000 });
+                await axios.get(`${service.serviceURL.replace('/v3/analyze', '')}/health`, { timeout: 10000 });
                 return { name: serviceName, status: 'healthy' };
             } catch (error) {
                 return { name: serviceName, status: 'unhealthy' };
@@ -150,7 +152,9 @@ app.get('/services/health', async (req, res) => {
         'inception': 'inception-api.service',
         'rtdetr': 'rtdetr-api.service',
         'metadata': 'metadata-api.service',
-        'ollama': 'llama-api.service'
+        'ollama': 'llama-api.service',
+        'yolo_365': 'yolo365-api.service',
+        'yolo_oi7': 'yolooi7-api.service'
     };
     
     const serviceHealthPromises = Object.entries(mlServices).map(async ([serviceName, service]) => {
@@ -162,8 +166,8 @@ app.get('/services/health', async (req, res) => {
             const { promisify } = require('util');
             const execAsync = promisify(exec);
             
-            // HTTP health check
-            const httpPromise = axios.get(`${service.serviceURL.replace('/v2/analyze', '')}/health`, { timeout: 5000 });
+            // HTTP health check with increased timeout for slower services like Ollama
+            const httpPromise = axios.get(`${service.serviceURL.replace('/v3/analyze', '')}/health`, { timeout: 10000 });
             
             // Systemd status check (no sudo needed)
             const systemdService = systemdServiceMap[serviceName];
@@ -227,46 +231,82 @@ app.get('/services/health', async (req, res) => {
     });
 });
 
-// Main analysis endpoint for URL analysis - GET request  
+// Unified analysis endpoint - handles URL, file upload, and direct file path
 app.get('/analyze', async (req, res) => {
-    const imageUrl = req.query.url;
-    
-    if (!imageUrl) {
-        return res.status(400).json({
-            success: false,
-            error: 'Missing required parameter: url'
-        });
-    }
+    let filePath;
+    let needsCleanup = false;
+    let imageUrl = null;
+    let originalUrl = null;
+    let isFileUpload = false;
 
     try {
-        const result = await performAnalysisFromUrl(imageUrl);
-        res.json(result);
-    } catch (error) {
-        console.error('Analysis error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Analysis failed',
-            details: error.message
-        });
-    }
-});
-
-// Main analysis endpoint for file uploads - POST request
-app.post('/analyze', upload.single('image'), async (req, res) => {
-    try {
-        // Handle image input
-        if (req.file) {
-            const result = await performAnalysisFromFile(req.file);
-            res.json(result);
-        } else if (req.body.image_url) {
-            const result = await performAnalysisFromUrl(req.body.image_url);
-            res.json(result);
+        if (req.query.url) {
+            // Download from URL
+            const downloadResult = await downloadExternalImage(req.query.url);
+            filePath = downloadResult.filepath;
+            imageUrl = `${PUBLIC_URL}/${downloadResult.filename}`;
+            originalUrl = req.query.url;
+            needsCleanup = true;
+            isFileUpload = false;
+        } else if (req.query.file) {
+            // Use local file path
+            filePath = req.query.file;
+            needsCleanup = false;
+            isFileUpload = false;
         } else {
             return res.status(400).json({
                 success: false,
-                error: 'No image provided. Use either file upload or image_url parameter.'
+                error: "Must provide either 'url' or 'file' parameter"
             });
         }
+
+        const result = await performAnalysis({
+            filePath,
+            imageUrl,
+            originalUrl,
+            isFileUpload
+        });
+        res.json(result);
+    } catch (error) {
+        console.error('Analysis error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Analysis failed',
+            details: error.message
+        });
+    } finally {
+        if (needsCleanup && filePath) {
+            try {
+                await require('fs').promises.unlink(filePath);
+            } catch (cleanupError) {
+                console.warn('Failed to cleanup temp file:', cleanupError.message);
+            }
+        }
+    }
+});
+
+// File upload endpoint - POST for uploading files (RESTful)
+app.post('/analyze', upload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                error: 'No file uploaded. Use multipart form data with an image file.'
+            });
+        }
+
+        // File upload
+        const filePath = req.file.path;
+        const imageUrl = `${PUBLIC_URL}/${req.file.filename}`;
+        const isFileUpload = true;
+
+        const result = await performAnalysis({
+            filePath,
+            imageUrl,
+            originalUrl: null,
+            isFileUpload
+        });
+        res.json(result);
     } catch (error) {
         console.error('Analysis error:', error);
         res.status(500).json({
@@ -275,433 +315,222 @@ app.post('/analyze', upload.single('image'), async (req, res) => {
             details: error.message
         });
     }
-});
-
-// File-based analysis endpoint - GET request for direct file paths
-app.get('/analyze_file', async (req, res) => {
-    const filePath = req.query.file_path;
-    
-    if (!filePath) {
-        return res.status(400).json({
-            success: false,
-            error: 'Missing required parameter: file_path'
-        });
-    }
-
-    try {
-        const result = await performAnalysisFromFilePath(filePath);
-        res.json(result);
-    } catch (error) {
-        console.error('File analysis error:', error);
-        res.status(500).json({
-            success: false,
-            error: 'File analysis failed',
-            details: error.message
-        });
-    }
+    // Note: No cleanup needed - multer handles file lifecycle
 });
 
 
-// Analysis for URL-based requests
-async function performAnalysisFromUrl(imageUrl) {
-    const downloadResult = await downloadExternalImage(imageUrl);
-    return await _performAnalysisCore({
-        tempFilePath: downloadResult.filepath,
-        imageUrl: `http://${API_HOST}:${PORT}/${downloadResult.filename}`,
-        isFileUpload: false,
-        originalUrl: imageUrl
-    });
-}
-
-// Analysis for file upload requests  
-async function performAnalysisFromFile(uploadedFile) {
-    return await _performAnalysisCore({
-        tempFilePath: uploadedFile.path,
-        imageUrl: `http://${API_HOST}:${PORT}/${uploadedFile.filename}`,
-        isFileUpload: true,
-        originalUrl: null
-    });
-}
-
-// Analysis for direct file path requests - optimized for local files
-async function performAnalysisFromFilePath(filePath) {
-    return await _performAnalysisCoreFile({
-        filePath: filePath,
-        isFileUpload: false,
-        originalUrl: null
-    });
-}
-
-// Shared core analysis logic
-async function _performAnalysisCore({ tempFilePath, imageUrl, isFileUpload, originalUrl }) {
+// Single analysis function - always works with local file paths
+async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload }) {
     const startTime = Date.now();
     let imageDimensions = null;
 
-    try {
-        // Measure image dimensions
-        try {
-            imageDimensions = sizeOf.default(require('fs').readFileSync(tempFilePath));
-            console.log(`Image dimensions: ${imageDimensions.width}x${imageDimensions.height}`);
-        } catch (dimensionError) {
-            console.warn(`Failed to measure image dimensions: ${dimensionError.message}`);
-            imageDimensions = null;
-        }
+    // Validate file exists
+    const fs = require('fs');
+    if (!fs.existsSync(filePath)) {
+        throw new Error(`File not found: ${filePath}`);
+    }
 
-        const imageId = uuidv4();
-        console.log(`Starting analysis for image: ${imageId}`);
+    // Measure image dimensions
+    try {
+        imageDimensions = sizeOf.default(fs.readFileSync(filePath));
+        console.log(`Image dimensions: ${imageDimensions.width}x${imageDimensions.height}`);
+    } catch (dimensionError) {
+        console.warn(`Failed to measure image dimensions: ${dimensionError.message}`);
+        imageDimensions = null;
+    }
+
+    const imageId = uuidv4();
+    const analysisType = imageUrl ? 'URL-BASED' : 'FILE-BASED';
+    console.log(`Starting ${analysisType} analysis for image: ${imageId}`);
+    if (imageUrl) {
         console.log(`Image URL: ${imageUrl}`);
-
-        // Call all available ML services in parallel
-        const mlStartTime = Date.now();
-        console.log(`Starting ML services at: ${mlStartTime - startTime}ms`);
-        
-        const servicePromises = Object.entries(mlServices).map(([serviceName, service]) => 
-            service.analyze(imageUrl)
-                .then(result => ({ serviceName, result }))
-                .catch(error => {
-                    error.serviceName = serviceName;
-                    throw error;
-                })
-        );
-
-        const serviceResults = await Promise.allSettled(servicePromises);
-        const mlEndTime = Date.now();
-        const mlDuration = mlEndTime - mlStartTime;
-        const analysisTime = (Date.now() - startTime) / 1000;
-        console.log(`ML services completed in: ${mlDuration}ms`);
-
-        // Process results with service status tracking
-        const processingStartTime = Date.now();
-        const results = {};
-        const serviceStatusList = [];
-        
-        serviceResults.forEach(promiseResult => {
-            if (promiseResult.status === 'fulfilled') {
-                const { serviceName, result } = promiseResult.value;
-                results[serviceName] = result;
-                
-                const predictionCount = result.data?.predictions?.length || 0;
-                const processingTime = result.processing_time || result.data?.metadata?.processing_time || 0;
-                
-                serviceStatusList.push({
-                    service: serviceName,
-                    status: 'success',
-                    predictions: predictionCount,
-                    time: Math.round(processingTime * 1000)
-                });
-                
-            } else {
-                const serviceName = promiseResult.reason.serviceName || 'unknown';
-                const errorMessage = promiseResult.reason.message || 'Unknown error';
-                
-                console.error(`Service failed: ${serviceName} - ${errorMessage}`);
-                
-                serviceStatusList.push({
-                    service: serviceName,
-                    status: promiseResult.reason.message.includes('timeout') ? 'timeout' : 'error',
-                    error: errorMessage,
-                    predictions: 0,
-                    time: 0
-                });
-            }
-        });
-        
-        const processingEndTime = Date.now();
-        console.log(`Result processing completed in: ${processingEndTime - processingStartTime}ms`);
-
-        // Apply voting algorithm
-        const votingStartTime = Date.now();
-        const votingResults = votingService.processVotes(results);
-        const votingEndTime = Date.now();
-        console.log(`Voting algorithm completed in: ${votingEndTime - votingStartTime}ms`);
-        
-        // Process bounding boxes
-        const bboxStartTime = Date.now();
-        const winningEmojis = votingResults.emoji_predictions.first_place?.map(item => item.emoji) || [];
-        const boundingBoxData = await boundingBoxService.processBoundingBoxes(
-            results,
-            imageDimensions,
-            winningEmojis
-        );
-        const bboxEndTime = Date.now();
-        console.log(`Bounding box processing completed in: ${bboxEndTime - bboxStartTime}ms`);
-
-        // Extract captions
-        const captionStartTime = Date.now();
-        const captions = {};
-        
-        if (results.blip?.data?.predictions) {
-            const captionPrediction = results.blip.data.predictions.find(p => p.type === 'caption');
-            if (captionPrediction?.text) {
-                captions.blip = captionPrediction.text;
-            }
-        }
-        
-        if (results.ollama?.data?.predictions) {
-            const captionPrediction = results.ollama.data.predictions.find(p => p.type === 'caption');
-            if (captionPrediction?.text) {
-                captions.llama = captionPrediction.text;
-            }
-        }
-
-        // Score captions
-        const captionScores = votingService.scoreCaptions(captions, votingResults, results);
-        const captionEndTime = Date.now();
-        console.log(`Caption processing completed in: ${captionEndTime - captionStartTime}ms`);
-
-        // Return response using ResponseFormatter
-        const responseStartTime = Date.now();
-        
-        // Check for degraded services and add health summary if needed
-        const failedServices = serviceStatusList.filter(s => s.status !== 'success');
-        const healthSummary = failedServices.length > 0 ? {
-            degraded_services: failedServices.map(s => s.service),
-            failed_count: failedServices.length,
-            total_services: serviceStatusList.length,
-            check_health_endpoint: "GET /services/health"
-        } : null;
-        
-        // Log service failures prominently
-        if (failedServices.length > 0) {
-            console.log(`🚨 WARNING: ${failedServices.length} services failed - check /services/health`);
-            console.log(`Failed services: ${failedServices.map(s => s.service).join(', ')}`);
-        }
-        
-        const response = responseFormatter.createCompactResponse({
-            imageId,
-            analysisTime,
-            imageDimensions,
-            imageUrl,
-            isFileUpload,
-            originalUrl,
-            serviceStatusList,
-            votingResults,
-            captions,
-            captionScores,
-            boundingBoxData,
-            results,
-            healthSummary
-        });
-        const responseEndTime = Date.now();
-        console.log(`Response formatting completed in: ${responseEndTime - responseStartTime}ms`);
-        
-        const totalTime = Date.now() - startTime;
-        console.log(`Total processing time: ${totalTime}ms`);
-        console.log(`Time breakdown:`);
-        console.log(`  - ML Services: ${mlDuration}ms`);
-        console.log(`  - Result Processing: ${processingEndTime - processingStartTime}ms`);
-        console.log(`  - Voting: ${votingEndTime - votingStartTime}ms`);
-        console.log(`  - Bounding Boxes: ${bboxEndTime - bboxStartTime}ms`);
-        console.log(`  - Caption Processing: ${captionEndTime - captionStartTime}ms`);
-        console.log(`  - Response Formatting: ${responseEndTime - responseStartTime}ms`);
-        console.log(`  - Unaccounted time: ${totalTime - mlDuration - (processingEndTime - processingStartTime) - (votingEndTime - votingStartTime) - (bboxEndTime - bboxStartTime) - (captionEndTime - captionStartTime) - (responseEndTime - responseStartTime)}ms`);
-
-        return response;
-
-    } finally {
-        // Cleanup uploaded file
-        if (tempFilePath) {
-            try {
-                await require('fs').promises.unlink(tempFilePath);
-            } catch (error) {
-                console.warn('Failed to cleanup temp file:', error.message);
-            }
-        }
-    }
-}
-
-// Optimized file-based analysis core - eliminates HTTP overhead
-async function _performAnalysisCoreFile({ filePath, isFileUpload, originalUrl }) {
-    const startTime = Date.now();
-    let imageDimensions = null;
-
-    try {
-        // Validate file exists
-        const fs = require('fs');
-        if (!fs.existsSync(filePath)) {
-            throw new Error(`File not found: ${filePath}`);
-        }
-
-        // Measure image dimensions
-        try {
-            imageDimensions = sizeOf.default(fs.readFileSync(filePath));
-            console.log(`Image dimensions: ${imageDimensions.width}x${imageDimensions.height}`);
-        } catch (dimensionError) {
-            console.warn(`Failed to measure image dimensions: ${dimensionError.message}`);
-            imageDimensions = null;
-        }
-
-        const imageId = uuidv4();
-        console.log(`Starting file-based analysis for image: ${imageId}`);
+        console.log(`Original URL: ${originalUrl}`);
+    } else {
         console.log(`File path: ${filePath}`);
-
-        // Call all available ML services using file paths - NO HTTP OVERHEAD! 🚀
-        const mlStartTime = Date.now();
-        console.log(`Starting ML services (FILE-BASED) at: ${mlStartTime - startTime}ms`);
-        
-        const servicePromises = Object.entries(mlServices).map(([serviceName, service]) => 
-            service.analyzeFile(filePath)  // Use the new analyzeFile method!
-                .then(result => ({ serviceName, result }))
-                .catch(error => {
-                    error.serviceName = serviceName;
-                    throw error;
-                })
-        );
-
-        const serviceResults = await Promise.allSettled(servicePromises);
-        const mlEndTime = Date.now();
-        const mlDuration = mlEndTime - mlStartTime;
-        const analysisTime = (Date.now() - startTime) / 1000;
-        console.log(`ML services (FILE-BASED) completed in: ${mlDuration}ms`);
-
-        // Process results with service status tracking
-        const processingStartTime = Date.now();
-        const results = {};
-        const serviceStatusList = [];
-        
-        serviceResults.forEach(promiseResult => {
-            if (promiseResult.status === 'fulfilled') {
-                const { serviceName, result } = promiseResult.value;
-                results[serviceName] = result;
-                
-                const predictionCount = result.data?.predictions?.length || 0;
-                const processingTime = result.processing_time || result.data?.metadata?.processing_time || 0;
-                
-                serviceStatusList.push({
-                    service: serviceName,
-                    status: 'success',
-                    predictions: predictionCount,
-                    time: Math.round(processingTime * 1000)
-                });
-                
-            } else {
-                const serviceName = promiseResult.reason.serviceName || 'unknown';
-                const errorMessage = promiseResult.reason.message || 'Unknown error';
-                
-                console.error(`Service failed: ${serviceName} - ${errorMessage}`);
-                
-                serviceStatusList.push({
-                    service: serviceName,
-                    status: promiseResult.reason.message.includes('timeout') ? 'timeout' : 'error',
-                    error: errorMessage,
-                    predictions: 0,
-                    time: 0
-                });
-            }
-        });
-        
-        const processingEndTime = Date.now();
-        console.log(`Result processing completed in: ${processingEndTime - processingStartTime}ms`);
-
-        // Apply voting algorithm
-        const votingStartTime = Date.now();
-        const votingResults = votingService.processVotes(results);
-        const votingEndTime = Date.now();
-        console.log(`Voting algorithm completed in: ${votingEndTime - votingStartTime}ms`);
-        
-        // Process bounding boxes
-        const bboxStartTime = Date.now();
-        const winningEmojis = votingResults.emoji_predictions.first_place?.map(item => item.emoji) || [];
-        const boundingBoxData = await boundingBoxService.processBoundingBoxes(
-            results,
-            imageDimensions,
-            winningEmojis
-        );
-        const bboxEndTime = Date.now();
-        console.log(`Bounding box processing completed in: ${bboxEndTime - bboxStartTime}ms`);
-
-        // Extract captions
-        const captionStartTime = Date.now();
-        const captions = {};
-        
-        if (results.blip?.data?.predictions) {
-            const captionPrediction = results.blip.data.predictions.find(p => p.type === 'caption');
-            if (captionPrediction?.text) {
-                captions.blip = captionPrediction.text;
-            }
-        }
-        
-        if (results.ollama?.data?.predictions) {
-            const captionPrediction = results.ollama.data.predictions.find(p => p.type === 'caption');
-            if (captionPrediction?.text) {
-                captions.llama = captionPrediction.text;
-            }
-        }
-
-        // Score captions
-        const captionScores = votingService.scoreCaptions(captions, votingResults, results);
-        const captionEndTime = Date.now();
-        console.log(`Caption processing completed in: ${captionEndTime - captionStartTime}ms`);
-
-        // Return response using ResponseFormatter
-        const responseStartTime = Date.now();
-        
-        // Check for degraded services and add health summary if needed
-        const failedServices = serviceStatusList.filter(s => s.status !== 'success');
-        const healthSummary = failedServices.length > 0 ? {
-            degraded_services: failedServices.map(s => s.service),
-            failed_count: failedServices.length,
-            total_services: serviceStatusList.length,
-            check_health_endpoint: "GET /services/health"
-        } : null;
-        
-        // Log service failures prominently
-        if (failedServices.length > 0) {
-            console.log(`🚨 WARNING: ${failedServices.length} services failed - check /services/health`);
-            console.log(`Failed services: ${failedServices.map(s => s.service).join(', ')}`);
-        }
-        
-        const response = responseFormatter.createCompactResponse({
-            imageId,
-            analysisTime,
-            imageDimensions,
-            imageUrl: null, // No imageUrl for file-based analysis
-            isFileUpload,
-            originalUrl,
-            serviceStatusList,
-            votingResults,
-            captions,
-            captionScores,
-            boundingBoxData,
-            results,
-            healthSummary,
-            filePath  // Include file path in response
-        });
-        const responseEndTime = Date.now();
-        console.log(`Response formatting completed in: ${responseEndTime - responseStartTime}ms`);
-        
-        const totalTime = Date.now() - startTime;
-        console.log(`🚀 FILE-BASED ANALYSIS - Total processing time: ${totalTime}ms`);
-        console.log(`⚡ PERFORMANCE BOOST: Eliminated HTTP overhead!`);
-        console.log(`Time breakdown:`);
-        console.log(`  - ML Services (FILE): ${mlDuration}ms`);
-        console.log(`  - Result Processing: ${processingEndTime - processingStartTime}ms`);
-        console.log(`  - Voting: ${votingEndTime - votingStartTime}ms`);
-        console.log(`  - Bounding Boxes: ${bboxEndTime - bboxStartTime}ms`);
-        console.log(`  - Caption Processing: ${captionEndTime - captionStartTime}ms`);
-        console.log(`  - Response Formatting: ${responseEndTime - responseStartTime}ms`);
-
-        return response;
-
-    } catch (error) {
-        console.error('File-based analysis error:', error);
-        throw error;
     }
-    // No cleanup needed for file-based analysis - we don't own the file
-}
 
-// Emoji mappings endpoint
-app.get('/emoji_mappings.json', (req, res) => {
-    const filePath = path.join(__dirname, 'emoji_mappings.json');
-    res.sendFile(filePath, (err) => {
-        if (err) {
-            console.error('Error serving emoji mappings:', err);
-            res.status(500).json({
-                success: false,
-                error: 'Failed to serve emoji mappings file'
+    // Call all available ML services - smart strategy based on input type
+    const mlStartTime = Date.now();
+    const serviceCallStrategy = originalUrl ? 'URL-BASED' : 'FILE-BASED';
+    console.log(`Starting ML services (${serviceCallStrategy}) at: ${mlStartTime - startTime}ms`);
+    
+    const servicePromises = Object.entries(mlServices).map(([serviceName, service]) => {
+        // Smart strategy:
+        // - originalUrl exists: Downloaded from external URL -> use local URL (works with distributed services)
+        // - no originalUrl: Direct file path -> use file path (requires local/shared filesystem)
+        const inputParam = originalUrl ? imageUrl : filePath;
+        
+        return service.analyze(inputParam)
+            .then(result => ({ serviceName, result }))
+            .catch(error => {
+                error.serviceName = serviceName;
+                throw error;
+            });
+    });
+
+    const serviceResults = await Promise.allSettled(servicePromises);
+    const mlEndTime = Date.now();
+    const mlDuration = mlEndTime - mlStartTime;
+    const analysisTime = (Date.now() - startTime) / 1000;
+    console.log(`ML services completed in: ${mlDuration}ms`);
+
+    // Process results with service status tracking
+    const processingStartTime = Date.now();
+    const results = {};
+    const serviceStatusList = [];
+    
+    serviceResults.forEach(promiseResult => {
+        if (promiseResult.status === 'fulfilled') {
+            const { serviceName, result } = promiseResult.value;
+            results[serviceName] = result;
+            serviceStatusList.push({
+                service: serviceName,
+                status: 'success',
+                time: result.metadata?.processing_time || 0,
+                predictions: result.predictions?.length || 0
+            });
+        } else {
+            const { serviceName } = promiseResult.reason;
+            const errorMessage = promiseResult.reason.message || 'Unknown error';
+            console.error(`Service ${serviceName} failed:`, errorMessage);
+            results[serviceName] = { 
+                success: false, 
+                error: errorMessage,
+                predictions: [],
+                metadata: { processing_time: 0 }
+            };
+            serviceStatusList.push({
+                service: serviceName,
+                status: promiseResult.reason.message.includes('timeout') ? 'timeout' : 'error',
+                error: errorMessage,
+                predictions: 0,
+                time: 0
             });
         }
     });
+    
+    const processingEndTime = Date.now();
+    console.log(`Result processing completed in: ${processingEndTime - processingStartTime}ms`);
+
+    // Process bounding boxes for ALL detections (no preliminary voting needed)
+    const bboxStartTime = Date.now();
+    const boundingBoxData = await boundingBoxService.processBoundingBoxes(
+        results,
+        imageDimensions,
+        [] // Process ALL detections - let BoundingBoxService handle everything
+    );
+    const bboxEndTime = Date.now();
+    console.log(`Bounding box processing completed in: ${bboxEndTime - bboxStartTime}ms`);
+    
+    // Apply voting algorithm with access to processed spatial data
+    const votingStartTime = Date.now();
+    const votingResults = votingService.processVotes(results, boundingBoxData);
+    const votingEndTime = Date.now();
+    console.log(`Voting algorithm completed in: ${votingEndTime - votingStartTime}ms`);
+
+    // Aggregate and score captions using dedicated service (now includes CLIP similarity scoring)
+    const captionStartTime = Date.now();
+    const captionService = new CaptionAggregationService();
+    const captionsData = await captionService.aggregateCaptions(results, votingResults, filePath);
+    const captionEndTime = Date.now();
+    console.log(`Caption processing completed in: ${captionEndTime - captionStartTime}ms`);
+
+    // Return response using ResponseFormatter
+    const responseStartTime = Date.now();
+    
+    // Check for degraded services and add health summary if needed
+    const failedServices = serviceStatusList.filter(s => s.status !== 'success');
+    const healthSummary = failedServices.length > 0 ? {
+        degraded_services: failedServices.map(s => s.service),
+        failed_count: failedServices.length,
+        total_services: serviceStatusList.length,
+        check_health_endpoint: "GET /services/health"
+    } : null;
+    
+    // Log service failures prominently
+    if (failedServices.length > 0) {
+        console.log(`🚨 WARNING: ${failedServices.length} services failed - check /services/health`);
+        console.log(`Failed services: ${failedServices.map(s => s.service).join(', ')}`);
+    }
+    
+    // Determine processing method and response data
+    let processingMethod;
+    if (originalUrl) {
+        processingMethod = 'external_url_downloaded';
+    } else if (isFileUpload) {
+        processingMethod = 'file_upload';
+    } else if (filePath && !originalUrl && !isFileUpload) {
+        processingMethod = 'direct_file_access';
+    } else {
+        throw new Error('Unable to determine processing method');
+    }
+
+    const response = responseFormatter.createCompactResponse({
+        imageId,
+        analysisTime,
+        imageDimensions,
+        imageUrl: originalUrl || isFileUpload ? imageUrl : null,
+        filePath: !originalUrl && !isFileUpload ? filePath : null,
+        processingMethod,
+        isFileUpload,
+        originalUrl: originalUrl || null,
+        serviceStatusList,
+        votingResults,
+        captionsData,
+        boundingBoxData,
+        results,
+        healthSummary
+    });
+    const responseEndTime = Date.now();
+    console.log(`Response formatting completed in: ${responseEndTime - responseStartTime}ms`);
+    
+    const totalTime = Date.now() - startTime;
+    console.log(`Total processing time: ${totalTime}ms`);
+    if (originalUrl) {
+        console.log(`⚡ DISTRIBUTED: Downloaded URL served locally to ML services via HTTP`);
+    } else {
+        console.log(`⚡ PERFORMANCE: Direct file access eliminates HTTP overhead!`);
+    }
+    console.log(`Time breakdown:`);
+    console.log(`  - ML Services (${serviceCallStrategy}): ${mlDuration}ms`);
+    console.log(`  - Result Processing: ${processingEndTime - processingStartTime}ms`);
+    console.log(`  - Voting: ${votingEndTime - votingStartTime}ms`);
+    console.log(`  - Bounding Boxes: ${bboxEndTime - bboxStartTime}ms`);
+    console.log(`  - Caption Processing: ${captionEndTime - captionStartTime}ms`);
+    console.log(`  - Response Formatting: ${responseEndTime - responseStartTime}ms`);
+    console.log(`  - Unaccounted time: ${totalTime - mlDuration - (processingEndTime - processingStartTime) - (votingEndTime - votingStartTime) - (bboxEndTime - bboxStartTime) - (captionEndTime - captionStartTime) - (responseEndTime - responseStartTime)}ms`);
+
+    return response;
+}
+
+
+// Health check for emoji mappings
+app.get('/health/emoji-mappings', async (req, res) => {
+    try {
+        const filePath = path.join(__dirname, 'emoji_mappings.json');
+        const data = await fs.readFile(filePath, 'utf8');
+        JSON.parse(data); // Validate JSON
+        res.json({ valid: true, status: 'ok' });
+    } catch (error) {
+        console.error('Emoji mappings validation failed:', error.message);
+        res.json({ valid: false, status: 'invalid', error: error.message });
+    }
+});
+
+// Emoji mappings endpoint with validation
+app.get('/emoji_mappings.json', async (req, res) => {
+    try {
+        const filePath = path.join(__dirname, 'emoji_mappings.json');
+        const data = await fs.readFile(filePath, 'utf8');
+        JSON.parse(data); // Validate before serving
+        res.sendFile(filePath);
+    } catch (error) {
+        console.error('Error serving emoji mappings:', error.message);
+        res.status(500).json({
+            success: false,
+            error: 'Emoji mappings file is invalid or missing'
+        });
+    }
 });
 
 // Multi-Word Expressions (MWE) mappings endpoint
