@@ -139,80 +139,30 @@ app.get('/health', async (req, res) => {
 app.get('/services/health', async (req, res) => {
     const startTime = Date.now();
     
-    // Map service names to their systemd service names
-    const systemdServiceMap = {
-        'blip': 'blip-api.service',
-        'clip': 'clip-api.service', 
-        'yolo': 'yolo-api.service',
-        'colors': 'colors-api.service',
-        'detectron2': 'detectron-api.service',
-        'face': 'face-api.service',
-        'nsfw': 'nsfw-api.service',
-        'ocr': 'ocr-api.service',
-        'inception': 'inception-api.service',
-        'rtdetr': 'rtdetr-api.service',
-        'metadata': 'metadata-api.service',
-        'ollama': 'llama-api.service',
-        'yolo_365': 'yolo365-api.service',
-        'yolo_oi7': 'yolooi7-api.service'
-    };
-    
     const serviceHealthPromises = Object.entries(mlServices).map(async ([serviceName, service]) => {
         const serviceStartTime = Date.now();
         try {
-            // Check both HTTP health and systemd status
+            // HTTP health check only - services self-report their status
             const axios = require('axios');
-            const { exec } = require('child_process');
-            const { promisify } = require('util');
-            const execAsync = promisify(exec);
+            const healthURL = `${service.serviceURL.replace('/v3/analyze', '')}/health`;
             
-            // HTTP health check with increased timeout for slower services like Ollama
-            const httpPromise = axios.get(`${service.serviceURL.replace('/v3/analyze', '')}/health`, { timeout: 10000 });
-            
-            // Systemd status check (no sudo needed)
-            const systemdService = systemdServiceMap[serviceName];
-            const systemdPromise = systemdService ? 
-                execAsync(`systemctl is-active ${systemdService}`).then(
-                    result => ({ systemd_status: result.stdout.trim() }),
-                    error => ({ systemd_status: 'inactive', systemd_error: error.message })
-                ) : 
-                Promise.resolve({ systemd_status: 'unknown' });
-            
-            const [httpResult, systemdResult] = await Promise.all([httpPromise, systemdPromise]);
+            await axios.get(healthURL, { timeout: 10000 });
             
             return {
                 name: serviceName,
                 status: 'healthy',
                 response_time: Date.now() - serviceStartTime,
                 last_check: new Date().toISOString(),
-                systemd_service: systemdService || 'unknown',
-                systemd_status: systemdResult.systemd_status,
-                systemd_error: systemdResult.systemd_error
+                health_endpoint: healthURL
             };
         } catch (error) {
-            // If HTTP fails, still try to get systemd status
-            const systemdService = systemdServiceMap[serviceName];
-            let systemdStatus = 'unknown';
-            try {
-                if (systemdService) {
-                    const { exec } = require('child_process');
-                    const { promisify } = require('util');
-                    const execAsync = promisify(exec);
-                    const result = await execAsync(`systemctl is-active ${systemdService}`);
-                    systemdStatus = result.stdout.trim();
-                }
-            } catch (systemdError) {
-                systemdStatus = 'inactive';
-            }
-            
             return {
                 name: serviceName,
                 status: error.code === 'ECONNREFUSED' ? 'offline' : 'error',
                 response_time: Date.now() - serviceStartTime,
                 error: error.message,
                 last_check: new Date().toISOString(),
-                systemd_service: systemdService || 'unknown',
-                systemd_status: systemdStatus
+                health_endpoint: `${service.serviceURL.replace('/v3/analyze', '')}/health`
             };
         }
     });
