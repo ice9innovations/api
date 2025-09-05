@@ -138,6 +138,7 @@ class ResponseFormatter {
                 // Add enhanced bounding boxes with cross-service clustering and instance tracking
                 if (bboxData.instances && bboxData.instances.length > 0) {
                     // Use cross-service instances with new robust format
+                    // Include ALL instance properties to preserve conditional processing enhancements
                     enhanced.bounding_boxes = bboxData.instances.map(instance => ({
                         cluster_id: instance.cluster_id,
                         merged_bbox: instance.merged_bbox,
@@ -145,7 +146,13 @@ class ResponseFormatter {
                         label: instance.label,
                         detection_count: instance.detection_count,
                         avg_confidence: instance.avg_confidence,
-                        detections: instance.detections
+                        detections: instance.detections,
+                        // Include conditional processing enhancements (color_analysis, face_analysis, pose_analysis)
+                        ...Object.fromEntries(
+                            Object.entries(instance).filter(([key, value]) => 
+                                key.endsWith('_analysis') && value != null
+                            )
+                        )
                     }));
                 } else if (bboxData.clusters && bboxData.clusters.length > 0) {
                     // Fallback to original clusters format for backward compatibility
@@ -218,6 +225,7 @@ class ResponseFormatter {
      * @param {Object} params.votingResults - Emoji voting results
      * @param {Object} params.captionsData - Unified caption aggregation results
      * @param {Object} params.boundingBoxData - Bounding box data
+     * @param {Object} params.conditionalData - Conditional processing results
      * @param {Object} params.results - Raw ML service results
      * @returns {Object} Compact response object
      */
@@ -234,6 +242,7 @@ class ResponseFormatter {
         votingResults,
         captionsData,
         boundingBoxData,
+        conditionalData,
         results,
         healthSummary = null
     }) {
@@ -272,6 +281,7 @@ class ResponseFormatter {
             ...captionsData,
             results: this.createCompactResults(results, serviceStatusList)
         };
+
         
         // Add health summary if services are degraded
         if (healthSummary) {

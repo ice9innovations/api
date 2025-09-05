@@ -5,6 +5,8 @@ const V2VotingService = require('./V2VotingService');
  * V3 Voting Service - handles native v3 service responses
  * Processes emoji predictions from v3 services without conversion layers
  */
+const { normalizeEmoji } = require('../utils/emojiUtils');
+
 class V3VotingService {
     constructor(options = {}) {
         this.serviceNames = {
@@ -196,10 +198,11 @@ class V3VotingService {
         const groups = {};
         
         allDetections.forEach(detection => {
-            if (!groups[detection.emoji]) {
-                groups[detection.emoji] = [];
+            const normalizedEmoji = normalizeEmoji(detection.emoji);
+            if (!groups[normalizedEmoji]) {
+                groups[normalizedEmoji] = [];
             }
-            groups[detection.emoji].push(detection);
+            groups[normalizedEmoji].push(detection);
         });
         
         return groups;

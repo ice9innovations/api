@@ -14,6 +14,7 @@ const { services: mlServices, config: mlConfig } = require('./services');
 // const V2VotingService = require('./services/V2VotingService');  // Original voting service - commented out for rollback
 const V3VotingService = require('./services/V3VotingService');  // V3 voting service
 const BoundingBoxService = require('./services/BoundingBoxService');
+const ConditionalProcessingService = require('./services/ConditionalProcessingService');
 const CaptionAggregationService = require('./services/CaptionAggregationService');
 const ResponseFormatter = require('./services/ResponseFormatter');
 
@@ -28,6 +29,7 @@ const MAX_FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
 // const votingService = new V2VotingService();  // Original voting service - commented out for rollback
 const votingService = new V3VotingService();  // V3 voting service
 const boundingBoxService = new BoundingBoxService();
+const conditionalProcessingService = new ConditionalProcessingService();
 const responseFormatter = new ResponseFormatter();
 
 // Middleware
@@ -210,11 +212,15 @@ app.get('/analyze', async (req, res) => {
             });
         }
 
+        // Check for no-post-processing flag
+        const skipPostProcessing = req.query.no_post_processing === 'true';
+
         const result = await performAnalysis({
             filePath,
             imageUrl,
             originalUrl,
-            isFileUpload
+            isFileUpload,
+            skipPostProcessing
         });
         res.json(result);
     } catch (error) {
@@ -250,11 +256,15 @@ app.post('/analyze', upload.single('image'), async (req, res) => {
         const imageUrl = `${PUBLIC_URL}/${req.file.filename}`;
         const isFileUpload = true;
 
+        // Check for no-post-processing flag
+        const skipPostProcessing = req.query.no_post_processing === 'true';
+
         const result = await performAnalysis({
             filePath,
             imageUrl,
             originalUrl: null,
-            isFileUpload
+            isFileUpload,
+            skipPostProcessing
         });
         res.json(result);
     } catch (error) {
@@ -270,7 +280,7 @@ app.post('/analyze', upload.single('image'), async (req, res) => {
 
 
 // Single analysis function - always works with local file paths
-async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload }) {
+async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload, skipPostProcessing = false }) {
     const startTime = Date.now();
     let imageDimensions = null;
 
@@ -372,6 +382,26 @@ async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload }
     const bboxEndTime = Date.now();
     console.log(`Bounding box processing completed in: ${bboxEndTime - bboxStartTime}ms`);
     
+    // Stage 3: Conditional processing on bounding boxes (colors on all, face/pose on humans) 
+    let conditionalData = { processing_time: 0, total_boxes_processed: 0, boxes_enhanced: 0 };
+    const conditionalStartTime = Date.now();
+    let conditionalEndTime = conditionalStartTime;
+    if (!skipPostProcessing) {
+        conditionalData = await conditionalProcessingService.processConditionalServices(
+            filePath,
+            boundingBoxData,
+            imageDimensions
+        );
+        conditionalEndTime = Date.now();
+        console.log(`Conditional processing completed in: ${conditionalEndTime - conditionalStartTime}ms`);
+    } else {
+        console.log(`⏭️ Skipping conditional processing (no_post_processing=true)`);
+        conditionalEndTime = Date.now();
+    }
+    console.log(`🎯 Conditional processing summary:`, JSON.stringify(conditionalData.service_summary, null, 2));
+    console.log(`🔍 Full conditional data keys:`, Object.keys(conditionalData));
+    console.log(`🔍 Conditional data length check:`, Object.keys(conditionalData).length);
+    
     // Apply voting algorithm with access to processed spatial data
     const votingStartTime = Date.now();
     const votingResults = votingService.processVotes(results, boundingBoxData);
@@ -428,6 +458,7 @@ async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload }
         votingResults,
         captionsData,
         boundingBoxData,
+        conditionalData,
         results,
         healthSummary
     });
@@ -444,11 +475,14 @@ async function performAnalysis({ filePath, imageUrl, originalUrl, isFileUpload }
     console.log(`Time breakdown:`);
     console.log(`  - ML Services (${serviceCallStrategy}): ${mlDuration}ms`);
     console.log(`  - Result Processing: ${processingEndTime - processingStartTime}ms`);
-    console.log(`  - Voting: ${votingEndTime - votingStartTime}ms`);
     console.log(`  - Bounding Boxes: ${bboxEndTime - bboxStartTime}ms`);
+    console.log(`  - Conditional Processing: ${conditionalEndTime - conditionalStartTime}ms`);
+    console.log(`  - Voting: ${votingEndTime - votingStartTime}ms`);
     console.log(`  - Caption Processing: ${captionEndTime - captionStartTime}ms`);
     console.log(`  - Response Formatting: ${responseEndTime - responseStartTime}ms`);
-    console.log(`  - Unaccounted time: ${totalTime - mlDuration - (processingEndTime - processingStartTime) - (votingEndTime - votingStartTime) - (bboxEndTime - bboxStartTime) - (captionEndTime - captionStartTime) - (responseEndTime - responseStartTime)}ms`);
+    
+    const accountedTime = mlDuration + (processingEndTime - processingStartTime) + (bboxEndTime - bboxStartTime) + (conditionalEndTime - conditionalStartTime) + (votingEndTime - votingStartTime) + (captionEndTime - captionStartTime) + (responseEndTime - responseStartTime);
+    console.log(`  - Unaccounted time: ${totalTime - accountedTime}ms`);
 
     return response;
 }

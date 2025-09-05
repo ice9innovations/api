@@ -40,6 +40,9 @@ A Node.js REST API that provides comprehensive image analysis using 12 different
 
 ### API Capabilities
 - **File Upload Support**: Accepts image uploads or direct image URLs
+- **Multi-Stage Processing**: Sophisticated conditional processing pipeline matching Windmill architecture
+- **Emoji Normalization**: Unicode variation selector handling for consistent detection grouping
+- **Performance Controls**: Optional `no_post_processing` flag for faster responses
 - **Comprehensive Error Handling**: Graceful degradation when individual services fail
 - **Real-time Processing**: Sub-second response times with detailed timing information
 - **Automatic Cleanup**: Temporary files automatically removed after analysis
@@ -149,10 +152,13 @@ Analyzes external image URLs. Downloads image then processes via ML services.
 
 **Parameters:**
 - `url` (string): URL of image to analyze
+- `no_post_processing` (boolean, optional): Skip conditional processing for faster responses
 
 **Example:**
 ```bash
 curl "http://localhost:8080/analyze?url=https://example.com/image.jpg"
+# Or skip post-processing for speed:
+curl "http://localhost:8080/analyze?url=https://example.com/image.jpg&no_post_processing=true"
 ```
 
 ### GET /health
@@ -196,6 +202,16 @@ Analyzes an image using all 13 ML services and returns aggregated results with e
 **Request Parameters:**
 - `image` (file): Image file upload (multipart/form-data)
 - `image_url` (string): URL of image to analyze (JSON)
+- `no_post_processing` (query param, optional): Skip conditional processing for faster responses
+
+**Examples:**
+```bash
+# Standard upload with full processing:
+curl -X POST http://localhost:8080/analyze -F "image=@/path/to/image.jpg"
+
+# Upload with post-processing disabled for speed:
+curl -X POST "http://localhost:8080/analyze?no_post_processing=true" -F "image=@/path/to/image.jpg"
+```
 
 **Response Structure:**
 ```json
@@ -365,6 +381,31 @@ npm test
 ```
 
 ## Architecture
+
+### Multi-Stage Conditional Processing
+The API implements a sophisticated 3-stage processing pipeline based on Windmill's proven architecture:
+
+**Stage 1: Primary Services**
+- All ML services run in parallel on the full image
+- Generates object detections, classifications, and captions
+- Standard bounding box detection and semantic analysis
+
+**Stage 2: BBox Harmonization**
+- Cross-service bounding box clustering and consensus building
+- Emoji normalization to handle Unicode variation selectors (🕊 vs 🕊️)
+- Multiple instance detection for objects of the same type
+- Democratic filtering of low-confidence single-service detections
+
+**Stage 3: Conditional Processing** 
+- **Colors service**: Runs on ALL detected bounding boxes for palette analysis
+- **Face & Pose services**: Run ONLY on human-detected bounding boxes (🧑, 🙂, 👩, 🧒)
+- In-memory bbox cropping with Sharp for zero file I/O overhead
+- Results integrated back into individual bounding box data
+
+**Performance Controls:**
+- `no_post_processing=true` query parameter skips Stage 3 for faster responses
+- Conditional processing adds ~50ms but provides rich bbox enhancements
+- All processing uses parallel execution and in-memory image buffers
 
 ### v2 Unified Design
 The API uses a streamlined architecture built on unified service endpoints:

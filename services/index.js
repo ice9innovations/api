@@ -145,13 +145,14 @@ function getServiceConfig(serviceName) {
 }
 
 // Initialize service clients using V3 service class
+// Note: face and pose are now handled by ConditionalProcessingService only
 const services = {
     blip: new V3BaseMLService(getServiceConfig('blip')),
     clip: new V3BaseMLService(getServiceConfig('clip')),
     yolo: new V3BaseMLService(getServiceConfig('yolo')),
-    colors: new V3BaseMLService(getServiceConfig('colors')),
+    colors: new V3BaseMLService(getServiceConfig('colors')), // runs on full image AND bbox regions
     detectron2: new V3BaseMLService(getServiceConfig('detectron2')),
-    face: new V3BaseMLService(getServiceConfig('face')),
+    // face: moved to conditional processing only (human bboxes)
     nsfw: new V3BaseMLService(getServiceConfig('nsfw')),
     ocr: new V3BaseMLService(getServiceConfig('ocr')),
     inception: new V3BaseMLService(getServiceConfig('inception')),

@@ -3,6 +3,8 @@
  * Handles coordinate scaling and semantic grouping for bounding boxes
  */
 
+const { normalizeEmoji } = require('../utils/emojiUtils');
+
 class BoundingBoxService {
     constructor() {
         // No configuration needed - ML services provide complete data
@@ -99,39 +101,6 @@ class BoundingBoxService {
         };
     }
 
-    /**
-     * Group detections by label and create multiple merged bounding boxes per label
-     * @param {Array} detections - Array of detection objects
-     * @returns {Object} Grouped detections with multiple merged bounding boxes
-     */
-    groupByLabel(detections) {
-        const groups = {};
-
-        detections.forEach(detection => {
-            const key = detection.type === 'face_detection' ? 'face' : detection.label;
-            if (!groups[key]) {
-                groups[key] = {
-                    label: detection.label,
-                    emoji: detection.emoji,
-                    type: detection.type,
-                    detections: [],
-                    clusters: []
-                };
-            }
-            groups[key].detections.push(detection);
-        });
-
-        // Create multiple clusters per group instead of single merged box
-        Object.values(groups).forEach(group => {
-            if (group.detections.length > 0) {
-                group.clusters = this.createMultipleClusters(group.detections);
-                // Keep merged_bbox as the largest cluster for backward compatibility
-                group.merged_bbox = group.clusters.length > 0 ? group.clusters[0].merged_bbox : null;
-            }
-        });
-
-        return groups;
-    }
 
     /**
      * Group detections by label with cross-service clustering to support multiple instances per emoji
@@ -142,9 +111,10 @@ class BoundingBoxService {
     groupByLabelWithCrossServiceClustering(detections) {
         const groups = {};
 
-        // Step 1: Group all detections by emoji/label (same as before)
+        // Step 1: Group all detections by emoji/label with normalization
         detections.forEach(detection => {
-            const key = detection.type === 'face_detection' ? 'face' : detection.emoji;
+            const rawKey = detection.type === 'face_detection' ? 'face' : detection.emoji;
+            const key = normalizeEmoji(rawKey);
             if (!groups[key]) {
                 groups[key] = {
                     label: detection.label,

@@ -1,14 +1,14 @@
 {
   "success": true,
-  "image_id": "0ab59466-eb74-43dc-913d-e71a8bdecb03",
-  "analysis_time": 2.642,
+  "image_id": "8ff022f1-ed31-4aac-8aa3-5a5ea4a9d109",
+  "analysis_time": 0.709,
   "image_data": {
     "image_dimensions": {
       "width": 640,
       "height": 457
     },
     "processing_method": "external_url_downloaded",
-    "image_url": "http://192.168.0.101:8080/df0c37b1-0420-409e-a29a-108607fb6ed8.webp",
+    "image_url": "http://192.168.0.101:8080/68a9e283-e8e3-492c-a886-3aa0e9339125.webp",
     "original_url": "http://peach.local/coco/webp/000000077222.webp"
   },
   "votes": {
@@ -16,8 +16,8 @@
       {
         "emoji": "🧑",
         "votes": 7,
-        "evidence_weight": 13,
-        "final_score": 20,
+        "evidence_weight": 12,
+        "final_score": 19,
         "instances": {
           "count": 8,
           "type": "spatial"
@@ -81,7 +81,79 @@
                 "service": "yolo_oi7",
                 "confidence": 0.629
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cool Gray No.10 (C-10)",
+                "hex": "#3c292e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "cool"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cool Gray No.7 (C-7)",
+                    "hex": "#777f83",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "Warm Grey 50% (PC 1054)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Neutral Gray No.3 (N-3)",
+                    "hex": "#dcdcdc",
+                    "prismacolor": "Neutral Grey 10% (PM 216)",
+                    "prismacolor_pencils": "Cool Grey 10% (PC 1059)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Bronze (BG78)",
+                    "hex": "#48756b",
+                    "prismacolor": "Cool Grey 80% (PM 115)",
+                    "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Dark Red (R89)",
+                    "hex": "#91354d",
+                    "prismacolor": "Mahogany Red (PM 150)",
+                    "prismacolor_pencils": "Tuscan Red (PC 937)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Slate (BV29)",
+                    "hex": "#2e4256",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Dark Brown (PM 88)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_2",
@@ -112,7 +184,79 @@
                 "service": "yolo_365",
                 "confidence": 0.825
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Dark Red (R89)",
+                "hex": "#7e2932",
+                "prismacolor": "Mahogany Red (PM 150)",
+                "prismacolor_pencils": "Crimson Lake (PC 925)",
+                "temperature": "warm"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Dark Red (R89)",
+                    "hex": "#91354d",
+                    "prismacolor": "Mahogany Red (PM 150)",
+                    "prismacolor_pencils": "Crimson Lake (PC 925)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Dark Brown (E47)",
+                    "hex": "#9a826c",
+                    "prismacolor": "Neutral Grey 50% (PM 220)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Champagne (E71)",
+                    "hex": "#ebe1da",
+                    "prismacolor": "Ballet Pink Light (PM 3)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Light Mahogany (E07)",
+                    "hex": "#d99278",
+                    "prismacolor": "Walnut (PM 90)",
+                    "prismacolor_pencils": "Blush Pink (PC 928)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Strong Red (R46)",
+                    "hex": "#e6506d",
+                    "prismacolor": "Cherry (PM 86)",
+                    "prismacolor_pencils": "Carmine Red (PC 926)",
+                    "temperature": "warm"
+                  }
+                ],
+                "temperature": "warm"
+              },
+              "temperature": "warm",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_3",
@@ -143,7 +287,79 @@
                 "service": "yolo_365",
                 "confidence": 0.771
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cool Gray No.3 (C-3)",
+                "hex": "#c8d2d7",
+                "prismacolor": "Cool Grey 30% (PM 110)",
+                "prismacolor_pencils": "Cool Grey 50% (PC 1063)",
+                "temperature": "cool"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cool Gray No.3 (C-3)",
+                    "hex": "#d0d5da",
+                    "prismacolor": "Cool Grey 30% (PM 110)",
+                    "prismacolor_pencils": "Cool Grey 50% (PC 1063)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Dark Brown (E47)",
+                    "hex": "#9a826c",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "French Grey 80% (PM 162)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Milk Chocolate (E27)",
+                    "hex": "#ac866d",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Clay Rose (PC 1017)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Chestnut (PC 1081)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.9 (C-9)",
+                    "hex": "#535150",
+                    "prismacolor": "Neutral Grey 80% (PM 223)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Slate (BV29)",
+                    "hex": "#2e4256",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_4",
@@ -174,7 +390,72 @@
                 "service": "yolo_365",
                 "confidence": 0.49
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Ash Rose (E70)",
+                "hex": "#eaefeb",
+                "prismacolor": "Brick White (PM 79)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Ash Rose (E70)",
+                    "hex": "#f1e9e2",
+                    "prismacolor": "Brick White (PM 79)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "Cool Grey 90% (PM 116)",
+                    "prismacolor_pencils": "Dark Umber (PC 947)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Brown (E47)",
+                    "hex": "#9a826c",
+                    "prismacolor": "Neutral Grey 50% (PM 220)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 70% (PM 276)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Warm Gray No.5 (W-5)",
+                    "hex": "#b8b6b0",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Sepia (PM 62)",
+                    "prismacolor_pencils": "Henna (PC 1031)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Grayish Olive (G94)",
+                    "hex": "#aab38e",
+                    "prismacolor": "Light Tan (PM 95)",
+                    "prismacolor_pencils": "Metallic Gold (PC 950)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "neutral"
+              },
+              "temperature": "neutral",
+              "color_count": 7
+            }
           },
           {
             "cluster_id": "person_5",
@@ -205,7 +486,79 @@
                 "service": "yolo_365",
                 "confidence": 0.415
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Champagne (E71)",
+                "hex": "#eaefeb",
+                "prismacolor": "French Grey 20% (PM 156)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Champagne (E71)",
+                    "hex": "#ebe1da",
+                    "prismacolor": "French Grey 20% (PM 156)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Pecan (E89)",
+                    "hex": "#7b746a",
+                    "prismacolor": "Neutral Grey 60% (PM 221)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "French Grey 80% (PM 162)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Baby Blossoms (RV95)",
+                    "hex": "#c694aa",
+                    "prismacolor": "Rhodamine Light (PM 54)",
+                    "prismacolor_pencils": "Rosy Beige (PC 1019)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  }
+                ],
+                "temperature": "warm"
+              },
+              "temperature": "warm",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_6",
@@ -236,7 +589,79 @@
                 "service": "yolo_365",
                 "confidence": 0.416
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cashew (E79)",
+                "hex": "#3d3833",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Dark Umber (PC 947)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Dark Umber (PC 947)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Brown (E47)",
+                    "hex": "#9a826c",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Warm Gray No.3 (W-3)",
+                    "hex": "#dddcd5",
+                    "prismacolor": "Light Umber 20% (PM 271)",
+                    "prismacolor_pencils": "French Grey 10% (PC 1068)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Light Umber (PC 941)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Walnut (E59)",
+                    "hex": "#ad9076",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "Light Umber (PM 172)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.9 (C-9)",
+                    "hex": "#535150",
+                    "prismacolor": "Neutral Grey 80% (PM 223)",
+                    "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Toner Gray No.5 (T-5)",
+                    "hex": "#b8b5b0",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  }
+                ],
+                "temperature": "neutral"
+              },
+              "temperature": "neutral",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_7",
@@ -263,7 +688,79 @@
                 "service": "rtdetr",
                 "confidence": 0.873
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Ash Rose (E70)",
+                "hex": "#eaefeb",
+                "prismacolor": "French Grey 20% (PM 156)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Ash Rose (E70)",
+                    "hex": "#f1e9e2",
+                    "prismacolor": "French Grey 20% (PM 156)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Pecan (E89)",
+                    "hex": "#7b746a",
+                    "prismacolor": "Neutral Grey 60% (PM 221)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "French Grey 80% (PM 162)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Bronze (BG78)",
+                    "hex": "#48756b",
+                    "prismacolor": "Cool Grey 80% (PM 115)",
+                    "prismacolor_pencils": "Periwinkle (PC 1025)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "person_8",
@@ -286,11 +783,73 @@
                 "service": "rtdetr",
                 "confidence": 0.492
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cool Gray No.10 (C-10)",
+                "hex": "#3c292e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "cool"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Toner Gray No.7 (T-7)",
+                    "hex": "#858380",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "Warm Grey 50% (PC 1054)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Bronze (BG78)",
+                    "hex": "#48756b",
+                    "prismacolor": "Cool Grey 80% (PM 115)",
+                    "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cool Gray No.3 (C-3)",
+                    "hex": "#d0d5da",
+                    "prismacolor": "Ash Grey (PM 206)",
+                    "prismacolor_pencils": "Cool Grey 50% (PC 1063)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cool Gray No.9 (C-9)",
+                    "hex": "#535150",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Neutral Grey 80% (PM 223)",
+                    "prismacolor_pencils": "Chestnut (PC 1081)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Ice Ocean (BG72)",
+                    "hex": "#88bec1",
+                    "prismacolor": "Cool Grey 50% (PM 112)",
+                    "prismacolor_pencils": "Metallic Silver (PC 949)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 7
+            }
           }
-        ],
-        "validation": [
-          "face_confirmed"
         ]
       },
       {
@@ -359,7 +918,79 @@
                 "service": "inception",
                 "confidence": 0.434
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Champagne (E71)",
+                "hex": "#eaefeb",
+                "prismacolor": "Ballet Pink Light (PM 3)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Champagne (E71)",
+                    "hex": "#ebe1da",
+                    "prismacolor": "Ballet Pink Light (PM 3)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Warm Gray No.7 (W-7)",
+                    "hex": "#86847f",
+                    "prismacolor": "Neutral Grey 50% (PM 220)",
+                    "prismacolor_pencils": "Warm Grey 30% (PC 1052)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "Cool Grey 90% (PM 116)",
+                    "prismacolor_pencils": "Dark Umber (PC 947)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 70% (PM 276)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Red (R89)",
+                    "hex": "#91354d",
+                    "prismacolor": "Mahogany Red (PM 150)",
+                    "prismacolor_pencils": "Crimson Lake (PC 925)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Sepia (PM 62)",
+                    "prismacolor_pencils": "Light Umber (PC 941)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.9 (C-9)",
+                    "hex": "#535150",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "warm"
+              },
+              "temperature": "warm",
+              "color_count": 8
+            }
           }
         ]
       },
@@ -408,7 +1039,79 @@
                 "service": "clip",
                 "confidence": 0.904
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cashew (E79)",
+                "hex": "#3c292e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Red (R89)",
+                    "hex": "#91354d",
+                    "prismacolor": "Mahogany Red (PM 150)",
+                    "prismacolor_pencils": "Crimson Lake (PC 925)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Warm Gray No.7 (W-7)",
+                    "hex": "#86847f",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Sand White (E42)",
+                    "hex": "#f2e8d3",
+                    "prismacolor": "Ballet Pink Light (PM 3)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Light Mahogany (E07)",
+                    "hex": "#d99278",
+                    "prismacolor": "Walnut (PM 90)",
+                    "prismacolor_pencils": "Blush Pink (PC 928)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Strong Red (R46)",
+                    "hex": "#e6506d",
+                    "prismacolor": "Cherry (PM 86)",
+                    "prismacolor_pencils": "Carmine Red (PC 926)",
+                    "temperature": "warm"
+                  }
+                ],
+                "temperature": "warm"
+              },
+              "temperature": "warm",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "girl_2",
@@ -427,7 +1130,79 @@
                 "service": "clip",
                 "confidence": 1
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Ash Rose (E70)",
+                "hex": "#eaefeb",
+                "prismacolor": "Ballet Pink Light (PM 3)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Ash Rose (E70)",
+                    "hex": "#f1e9e2",
+                    "prismacolor": "Ballet Pink Light (PM 3)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Pecan (E89)",
+                    "hex": "#7b746a",
+                    "prismacolor": "Neutral Grey 60% (PM 221)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "Mahogany Red (PM 150)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Sandbar Brown (PC 1094)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Caribe Cocoa (E25)",
+                    "hex": "#dfb693",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Bronze (BG78)",
+                    "hex": "#48756b",
+                    "prismacolor": "Cool Grey 80% (PM 115)",
+                    "prismacolor_pencils": "Periwinkle (PC 1025)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 8
+            }
           },
           {
             "cluster_id": "girl_3",
@@ -446,7 +1221,79 @@
                 "service": "clip",
                 "confidence": 0.996
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Ash Rose (E70)",
+                "hex": "#eaefeb",
+                "prismacolor": "Brick White (PM 79)",
+                "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                "temperature": "neutral"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Ash Rose (E70)",
+                    "hex": "#f1e9e2",
+                    "prismacolor": "Brick White (PM 79)",
+                    "prismacolor_pencils": "Cool Grey 20% (PC 1060)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cashew (E79)",
+                    "hex": "#52382d",
+                    "prismacolor": "Cool Grey 90% (PM 116)",
+                    "prismacolor_pencils": "Dark Umber (PC 947)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Brown (E47)",
+                    "hex": "#9a826c",
+                    "prismacolor": "Neutral Grey 50% (PM 220)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cocoa Brown (E74)",
+                    "hex": "#b5998c",
+                    "prismacolor": "Light Umber 70% (PM 276)",
+                    "prismacolor_pencils": "Beige Sienna (PC 1080)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Dark Brown (PM 88)",
+                    "prismacolor_pencils": "Chestnut (PC 1081)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Warm Gray No.5 (W-5)",
+                    "hex": "#b8b6b0",
+                    "prismacolor": "Light Umber 50% (PM 274)",
+                    "prismacolor_pencils": "Putty Beige (PC 1083)",
+                    "temperature": "warm"
+                  },
+                  {
+                    "copic": "Maroon (E77)",
+                    "hex": "#947157",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Light Umber (PC 941)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Grayish Olive (G94)",
+                    "hex": "#aab38e",
+                    "prismacolor": "Light Tan (PM 95)",
+                    "prismacolor_pencils": "Metallic Gold (PC 950)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "neutral"
+              },
+              "temperature": "neutral",
+              "color_count": 8
+            }
           }
         ]
       },
@@ -495,7 +1342,79 @@
                 "service": "yolo_oi7",
                 "confidence": 0.266
               }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cool Gray No.10 (C-10)",
+                "hex": "#3c292e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "cool"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Pecan (E89)",
+                    "hex": "#7b746a",
+                    "prismacolor": "Neutral Grey 60% (PM 221)",
+                    "prismacolor_pencils": "French Grey 70% (PC 1074)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Cool Gray No.8 (C-8)",
+                    "hex": "#63696d",
+                    "prismacolor": "Neutral Grey 80% (PM 223)",
+                    "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Wisteria (V20)",
+                    "hex": "#d5ccd6",
+                    "prismacolor": "French Grey 30% (PM 157)",
+                    "prismacolor_pencils": "Cool Grey 50% (PC 1063)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Fig (E87)",
+                    "hex": "#5b4d38",
+                    "prismacolor": "French Grey 80% (PM 162)",
+                    "prismacolor_pencils": "Mahogany Red (PC 1029)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Light Umber 90% (PM 278)",
+                    "prismacolor_pencils": "Light Umber (PC 941)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Walnut (E59)",
+                    "hex": "#ad9076",
+                    "prismacolor": "Light Umber 80% (PM 277)",
+                    "prismacolor_pencils": "Clay Rose (PC 1017)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Slate (BV29)",
+                    "hex": "#2e4256",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 8
+            }
           }
         ]
       },
@@ -541,114 +1460,6 @@
         ]
       },
       {
-        "emoji": "🙂",
-        "votes": 2,
-        "evidence_weight": 2,
-        "final_score": 4,
-        "instances": {
-          "count": 1,
-          "type": "non_spatial"
-        },
-        "evidence": {
-          "spatial": null,
-          "semantic": null,
-          "classification": null,
-          "specialized": [
-            "face"
-          ]
-        },
-        "services": [
-          "face",
-          "yolo_oi7"
-        ],
-        "bounding_boxes": [
-          {
-            "cluster_id": 0,
-            "merged_bbox": {
-              "x": 400,
-              "y": 64,
-              "width": 79,
-              "height": 101
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.518,
-            "services": [
-              "yolo_oi7"
-            ]
-          },
-          {
-            "cluster_id": 1,
-            "merged_bbox": {
-              "x": 196,
-              "y": 93,
-              "width": 40,
-              "height": 59
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.334,
-            "services": [
-              "yolo_oi7"
-            ]
-          },
-          {
-            "cluster_id": 2,
-            "merged_bbox": {
-              "x": 298,
-              "y": 97,
-              "width": 28,
-              "height": 36
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.45,
-            "services": [
-              "yolo_oi7"
-            ]
-          },
-          {
-            "cluster_id": 3,
-            "merged_bbox": {
-              "x": 252,
-              "y": 88,
-              "width": 28,
-              "height": 42
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.371,
-            "services": [
-              "yolo_oi7"
-            ]
-          },
-          {
-            "cluster_id": 4,
-            "merged_bbox": {
-              "x": 281,
-              "y": 61,
-              "width": 24,
-              "height": 25
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.368,
-            "services": [
-              "yolo_oi7"
-            ]
-          },
-          {
-            "cluster_id": 5,
-            "merged_bbox": {
-              "x": null,
-              "y": null,
-              "width": null,
-              "height": null
-            },
-            "detection_count": 1,
-            "avg_confidence": 0.763,
-            "services": [
-              "face"
-            ]
-          }
-        ]
-      },
-      {
         "emoji": "👔",
         "votes": 2,
         "evidence_weight": 2,
@@ -689,57 +1500,72 @@
                 "service": "inception",
                 "confidence": 0.973
               }
-            ]
-          }
-        ]
-      },
-      {
-        "emoji": "👗",
-        "votes": 2,
-        "evidence_weight": 2,
-        "final_score": 4,
-        "instances": {
-          "count": 1,
-          "type": "spatial"
-        },
-        "evidence": {
-          "spatial": {
-            "detection_count": 1,
-            "avg_confidence": 0.954,
-            "instance_count": 1
-          },
-          "semantic": {
-            "service_count": 1,
-            "words": [
-              "dress"
-            ]
-          },
-          "classification": null,
-          "specialized": null
-        },
-        "services": [
-          "inception",
-          "llama"
-        ],
-        "bounding_boxes": [
-          {
-            "cluster_id": "kimono_1",
-            "merged_bbox": {
-              "x": 164,
-              "y": 69,
-              "width": 109,
-              "height": 193
-            },
-            "emoji": "👗",
-            "label": "kimono",
-            "detection_count": 1,
-            "avg_confidence": 0.954,
-            "detections": [
-              {
-                "service": "inception",
-                "confidence": 0.954
-              }
-            ]
+            ],
+            "color_analysis": {
+              "primary_color": {
+                "copic": "Cool Gray No.10 (C-10)",
+                "hex": "#3c292e",
+                "prismacolor": "French Grey 90% (PM 163)",
+                "prismacolor_pencils": "Espresso (PC 1099)",
+                "temperature": "cool"
+              },
+              "palette": {
+                "colors": [
+                  {
+                    "copic": "Cool Gray No.10 (C-10)",
+                    "hex": "#1f1e1e",
+                    "prismacolor": "French Grey 90% (PM 163)",
+                    "prismacolor_pencils": "Espresso (PC 1099)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Toner Gray No.7 (T-7)",
+                    "hex": "#858380",
+                    "prismacolor": "French Grey 70% (PM 161)",
+                    "prismacolor_pencils": "Warm Grey 50% (PC 1054)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Bronze (BG78)",
+                    "hex": "#48756b",
+                    "prismacolor": "Cool Grey 80% (PM 115)",
+                    "prismacolor_pencils": "Warm Grey 90% (PC 1058)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cool Gray No.3 (C-3)",
+                    "hex": "#d0d5da",
+                    "prismacolor": "Ash Grey (PM 206)",
+                    "prismacolor_pencils": "Cool Grey 50% (PC 1063)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Cool Gray No.9 (C-9)",
+                    "hex": "#535150",
+                    "prismacolor": "Warm Grey 80% (PM 106)",
+                    "prismacolor_pencils": "Cool Grey 90% (PC 1067)",
+                    "temperature": "cool"
+                  },
+                  {
+                    "copic": "Dark Bark (E49)",
+                    "hex": "#7a5d45",
+                    "prismacolor": "Neutral Grey 80% (PM 223)",
+                    "prismacolor_pencils": "Chestnut (PC 1081)",
+                    "temperature": "neutral"
+                  },
+                  {
+                    "copic": "Ice Ocean (BG72)",
+                    "hex": "#88bec1",
+                    "prismacolor": "Cool Grey 50% (PM 112)",
+                    "prismacolor_pencils": "Metallic Silver (PC 949)",
+                    "temperature": "cool"
+                  }
+                ],
+                "temperature": "cool"
+              },
+              "temperature": "cool",
+              "color_count": 7
+            }
           }
         ]
       }
@@ -750,10 +1576,7 @@
       "detected": false
     },
     "face": {
-      "emoji": "🙂",
-      "detected": true,
-      "confidence": 0.763,
-      "pose": null
+      "detected": false
     },
     "nsfw": {
       "detected": false
@@ -776,9 +1599,9 @@
       ]
     },
     "llama": {
-      "original": "A man is giving a teddy bear to a little girl wearing a pink dress.",
-      "words": 9,
-      "clip_similarity": 0.25,
+      "original": "A man is giving a teddy bear to a little girl.",
+      "words": 6,
+      "clip_similarity": 0.238,
       "emoji_mappings": [
         {
           "emoji": "🧑",
@@ -787,10 +1610,6 @@
         {
           "emoji": "🧸",
           "word": "teddy_bear"
-        },
-        {
-          "emoji": "👗",
-          "word": "dress"
         }
       ]
     }
@@ -818,7 +1637,7 @@
         "model_info": {
           "framework": "BLIP (Bootstrapping Language-Image Pre-training)"
         },
-        "processing_time": 0.268
+        "processing_time": 0.309
       }
     },
     "clip": {
@@ -839,17 +1658,6 @@
         },
         {
           "bbox": {
-            "height": 98,
-            "width": 41,
-            "x": 267,
-            "y": 42
-          },
-          "confidence": 0.999,
-          "emoji": "",
-          "label": "dairy_product"
-        },
-        {
-          "bbox": {
             "height": 441,
             "width": 392,
             "x": 247,
@@ -858,6 +1666,17 @@
           "confidence": 0.999,
           "emoji": "",
           "label": "marine_mammal"
+        },
+        {
+          "bbox": {
+            "height": 98,
+            "width": 41,
+            "x": 267,
+            "y": 42
+          },
+          "confidence": 0.999,
+          "emoji": "",
+          "label": "dairy_product"
         },
         {
           "bbox": {
@@ -920,7 +1739,7 @@
         "model_info": {
           "framework": "YOLO + CLIP"
         },
-        "processing_time": 0.334
+        "processing_time": 0.371
       }
     },
     "colors": {
@@ -1002,7 +1821,7 @@
         "model_info": {
           "framework": "Haishoku"
         },
-        "processing_time": 0.222
+        "processing_time": 0.231
       }
     },
     "detectron2": {
@@ -1102,56 +1921,7 @@
         "model_info": {
           "framework": "Facebook AI Research"
         },
-        "processing_time": 0.182
-      }
-    },
-    "face": {
-      "success": true,
-      "status": "success",
-      "predictions": [
-        {
-          "bbox": [
-            385,
-            69,
-            79,
-            79
-          ],
-          "confidence": 0.763,
-          "emoji": "🙂",
-          "keypoints": {
-            "left_ear_tragion": [
-              484,
-              93
-            ],
-            "left_eye": [
-              431,
-              93
-            ],
-            "mouth_center": [
-              421,
-              129
-            ],
-            "nose_tip": [
-              409,
-              114
-            ],
-            "right_ear_tragion": [
-              440,
-              100
-            ],
-            "right_eye": [
-              418,
-              95
-            ]
-          },
-          "label": "face"
-        }
-      ],
-      "metadata": {
-        "model_info": {
-          "framework": "MediaPipe"
-        },
-        "processing_time": 0.013
+        "processing_time": 0.328
       }
     },
     "inception": {
@@ -1207,7 +1977,7 @@
         "model_info": {
           "framework": "YOLO + Xception"
         },
-        "processing_time": 0.606
+        "processing_time": 0.686
       }
     },
     "metadata": {
@@ -1254,9 +2024,9 @@
             "width": 640
           },
           "exif_data": {
-            "File:FileAccessDate": "2025:09:04 14:37:17-07:00",
-            "File:FileInodeChangeDate": "2025:09:04 14:37:17-07:00",
-            "File:FileModifyDate": "2025:09:04 14:37:17-07:00"
+            "File:FileAccessDate": "2025:09:04 18:33:00-07:00",
+            "File:FileInodeChangeDate": "2025:09:04 18:33:00-07:00",
+            "File:FileModifyDate": "2025:09:04 18:33:00-07:00"
           },
           "file": {
             "file_size": 168662,
@@ -1290,7 +2060,7 @@
         "model_info": {
           "framework": "ExifTool + PIL + OpenCV + NumPy"
         },
-        "processing_time": 0.175
+        "processing_time": 0.16
       }
     },
     "nsfw": {
@@ -1307,7 +2077,7 @@
         "model_info": {
           "framework": "TensorFlow"
         },
-        "processing_time": 0.201
+        "processing_time": 0.178
       }
     },
     "ocr": {
@@ -1326,7 +2096,7 @@
         "model_info": {
           "framework": "PaddleOCR"
         },
-        "processing_time": 0.028
+        "processing_time": 0.042
       }
     },
     "ollama": {
@@ -1342,13 +2112,9 @@
             {
               "emoji": "🧸",
               "word": "teddy_bear"
-            },
-            {
-              "emoji": "👗",
-              "word": "dress"
             }
           ],
-          "text": "A man is giving a teddy bear to a little girl wearing a pink dress."
+          "text": "A man is giving a teddy bear to a little girl."
         }
       ],
       "metadata": {
@@ -1357,7 +2123,7 @@
           "model": "llava-llama3",
           "prompt": "Briefly describe this image in a single short sentence including the number and type of people if any are present and what they are doing and any text included in the image, also mentioning nudity and explicit conent if applicable."
         },
-        "processing_time": 2.62
+        "processing_time": 0.394
       }
     },
     "rtdetr": {
@@ -1479,7 +2245,7 @@
         "model_info": {
           "framework": "RT-DETR PyTorch"
         },
-        "processing_time": 0.231
+        "processing_time": 0.238
       }
     },
     "yolo": {
@@ -1601,7 +2367,7 @@
         "model_info": {
           "framework": "Ultralytics YOLOv8"
         },
-        "processing_time": 0.122
+        "processing_time": 0.164
       }
     },
     "yolo_365": {
@@ -1800,7 +2566,7 @@
           "dataset": "Object365",
           "framework": "Ultralytics YOLO"
         },
-        "processing_time": 0.216
+        "processing_time": 0.372
       }
     },
     "yolo_oi7": {
@@ -1934,7 +2700,7 @@
           "dataset": "Open Images 7",
           "framework": "Ultralytics YOLO"
         },
-        "processing_time": 0.166
+        "processing_time": 0.351
       }
     }
   }
